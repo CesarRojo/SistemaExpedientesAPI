@@ -15,7 +15,19 @@ const storage = multer.diskStorage({
     cb(null, "uploads/"); // Carpeta donde se guardarán los videos
   },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname)); // Renombrar archivo
+    const originalName = file.originalname;
+    const extension = path.extname(originalName);
+    const baseName = path.basename(originalName, extension);
+    let filePath = path.join(UPLOADS_FOLDER, originalName);
+    let counter = 1;
+
+    // Verificar si el archivo ya existe y agregar un sufijo numérico incremental
+    while (fs.existsSync(filePath)) {
+      filePath = path.join(UPLOADS_FOLDER, `${baseName}-${counter}${extension}`);
+      counter++;
+    }
+
+    cb(null, path.basename(filePath)); // Usar el nombre del archivo con el sufijo numérico si es necesario
   }
 });
 
