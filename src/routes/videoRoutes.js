@@ -4,13 +4,10 @@ const { uploadVideo, getVideos, deleteVideo } = require("../controllers/videoCon
 
 const router = express.Router();
 
-// Ruta para subir videos
-router.post("/upload", upload.single("video"), uploadVideo);
-
-// Ruta para obtener la lista de videos
-router.get("/videos", getVideos);
-
-// Ruta para eliminar un video
-router.delete("/videos/:id", deleteVideo);
-
-module.exports = router;
+module.exports = (io) => {
+    // Aquí pasamos `io` a las rutas
+    router.post("/upload", upload.single("video"), (req, res) => uploadVideo(io)(req, res));
+    router.delete("/videos/:id", (req, res) => deleteVideo(io)(req, res));
+    router.get("/videos", getVideos);
+    return router;
+};

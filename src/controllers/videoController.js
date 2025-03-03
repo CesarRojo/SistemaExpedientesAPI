@@ -13,7 +13,7 @@ const getVideos = async (req, res) => {
 };
 
 // Función para manejar la subida de video
-const uploadVideo = async (req, res) => {
+const uploadVideo = (io) => async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({ message: "No se subió ningún archivo" });
@@ -27,6 +27,9 @@ const uploadVideo = async (req, res) => {
       }
     });
 
+    // Emitir evento de subida de video
+    io.emit('videoUploaded', { message: "Video subido con éxito", video: newVideo });
+
     res.status(201).json({ message: "Video subido con éxito", video: newVideo });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -34,7 +37,7 @@ const uploadVideo = async (req, res) => {
 };
 
 // Eliminar un video
-const deleteVideo = async (req, res) => {
+const deleteVideo = (io) => async (req, res) => {
     const { id } = req.params;
   
     try {
@@ -55,6 +58,9 @@ const deleteVideo = async (req, res) => {
       await prisma.video.delete({
         where: { id: parseInt(id) },
       });
+
+      // Emitir evento de eliminación de video
+      io.emit('videoDeleted', { message: "Video eliminado con éxito", videoId: id });
   
       res.status(200).json({ message: "Video eliminado con éxito" });
     } catch (error) {
