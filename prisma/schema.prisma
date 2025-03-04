@@ -19,3 +19,8 @@ model Video {
   path     String
   createdAt DateTime @default(now())
 }
+
+model Folio {
+  id       Int    @id @default(autoincrement())
+  numFolio Int    @unique
+}
