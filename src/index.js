@@ -12,8 +12,8 @@ const server = http.createServer(app);
 // Configurar Socket.IO con CORS
 const io = socketIo(server, {
   cors: {
-    origin: 'http://localhost:5173', // Cambia esto al origen de tu cliente
-    methods: ['GET', 'POST', 'DELETE'],
+    origin: '*', // Permitir cualquier origen
+    methods: ['GET', 'POST', 'DELETE', 'PUT'],
     credentials: true // Permitir cookies y credenciales
   }
 });
@@ -22,8 +22,8 @@ const PORT = process.env.PORT || 5005;
 
 // Configurar CORS para las solicitudes HTTP
 const corsOptions = {
-  origin: 'http://localhost:5173', // Cambiar esto al origen del cliente
-  methods: ['GET', 'POST', 'DELETE'],
+  origin: '*', // Permitir cualquier origen
+  methods: ['GET', 'POST', 'DELETE', 'PUT'],
   credentials: true // Permitir cookies y credenciales
 };
 
