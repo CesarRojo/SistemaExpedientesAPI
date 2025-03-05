@@ -30,7 +30,7 @@ Este proyecto es una API para el front sistema expedientes utilizando Express, P
 2. Configura las variables de entorno
     Crea un archivo .env en la raíz del proyecto y añade la URL de tu base de datos SQL Server:
     ```
-    DATABASE_URL="sqlserver://usuario:contraseña@localhost:1433/nombre_base_datos"
+    DATABASE_URL="sqlserver://HOST:PORT;database=DB_NAME;user=USER;password=PASS;trustServerCertificate=true"
     ```
 
 3. Ejecuta las migracione de la base de datos
