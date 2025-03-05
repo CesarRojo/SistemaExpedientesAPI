@@ -1,6 +1,6 @@
 # Sistema de Expedientes API
 
-Este proyecto es una API para el front sistema expedientes utilizando Express, Prisma y Socket.IO.
+Este proyecto es una API para el proyecto Sistema Expedientes utilizando Express, Prisma y Socket.IO.
 
 ## Tecnologías Utilizadas
 
@@ -22,8 +22,8 @@ Este proyecto es una API para el front sistema expedientes utilizando Express, P
 1. Clona el repositorio:
 
    ```
-   git clone https://github.com/tu-usuario/tu-repositorio.git
-   cd tu-repositorio
+   git clone https://github.com/tu-usuario/SistemaExpedientesAPI.git
+   cd SistemaExpedientesAPI
    npm install
    ```
 
@@ -33,7 +33,7 @@ Este proyecto es una API para el front sistema expedientes utilizando Express, P
     DATABASE_URL="sqlserver://HOST:PORT;database=DB_NAME;user=USER;password=PASS;trustServerCertificate=true"
     ```
 
-3. Ejecuta las migracione de la base de datos
+3. Ejecuta las migraciones de la base de datos
     >npx prisma migrate deploy
 
 4. Inicia el servidor en modo desarrollo
@@ -43,6 +43,7 @@ Este proyecto es una API para el front sistema expedientes utilizando Express, P
 
 - La API estará disponible en http://localhost:5005.
 - Puedes acceder a los videos subidos en http://localhost:5005/uploads.
+- Puedes acceder a los folios subidos en http://localhost:5005/folio.
 
 ### Endpoints
 
