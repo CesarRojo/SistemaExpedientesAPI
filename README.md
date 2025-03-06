@@ -22,7 +22,7 @@ Este proyecto es una API para el proyecto Sistema Expedientes utilizando Express
 1. Clona el repositorio:
 
    ```
-   git clone https://github.com/tu-usuario/SistemaExpedientesAPI.git
+   git clone https://github.com/CesarRojo/SistemaExpedientesAPI.git
    cd SistemaExpedientesAPI
    npm install
    ```
