@@ -4,9 +4,9 @@ BEGIN TRAN;
 
 -- CreateTable
 CREATE TABLE [dbo].[Folio] (
-    [id] INT NOT NULL IDENTITY(1,1),
+    [idFolio] INT NOT NULL IDENTITY(1,1),
     [numFolio] INT NOT NULL,
-    CONSTRAINT [Folio_pkey] PRIMARY KEY CLUSTERED ([id])
+    CONSTRAINT [Folio_pkey] PRIMARY KEY CLUSTERED ([idFolio])
 );
 
 COMMIT TRAN;

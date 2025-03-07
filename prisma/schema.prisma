@@ -14,13 +14,215 @@ datasource db {
 }
 
 model Video {
-  id       Int    @id @default(autoincrement())
-  filename String
-  path     String
-  createdAt DateTime @default(now())
+  idVideo       Int    @id @default(autoincrement())
+  filename      String
+  path          String
+  createdAt     DateTime @default(now())
 }
 
 model Folio {
-  id       Int    @id @default(autoincrement())
-  numFolio Int    @unique
+  idFolio       Int    @id @default(autoincrement())
+  numFolio      Int    @unique
+  Empleado      Empleado?
+  Usuario       Usuario?
+}
+
+model Roles {
+  idRol         Int      @id @default(autoincrement())
+  displayName   String
+  key           String
+  level         Int
+  Empleado      Empleado[]
+}
+
+model Empleado {
+  idEmpleado    Int      @id @default(autoincrement())
+  noReloj       String
+  password      String
+  puesto        String
+  createdAt     DateTime @default(now())
+  idFolio       Int      @unique
+  idRol         Int
+  folio         Folio     @relation(fields: [idFolio], references: [idFolio])
+  roles         Roles     @relation(fields: [idRol], references: [idRol])
+}
+
+model Usuario {
+  idUsuario      Int      @id @default(autoincrement())
+  nombre         String
+  apellidoPat    String
+  apellidoMat    String
+  sexo           String   @db.Char(1)
+  edad           Int
+  estado_civil   String
+  tel_personal   String
+  tel_emergencia String
+  calle          String
+  numero         String
+  colonia        String
+  escolaridad    String
+  idFolio        Int      @unique
+  folio          Folio     @relation(fields: [idFolio], references: [idFolio])
+  solicitudInterna SolicitudInterna? @relation
+  examenMedico   ExamenMedico? @relation
+  exploracionFisica ExploracionFisica? @relation
+  entrevistaInicial EntrevistaInicial? @relation
+}
+
+model SolicitudInterna {
+  idSolInt      Int      @id @default(autoincrement())
+  fecha         DateTime
+  fechaNac      DateTime
+  lugarNac      String
+  RFC           String
+  CURP          String
+  NSS           String
+  CP            String
+  ciudad        String
+  estado        String
+  municipio     String
+  viveCon       String
+  idUsuario      Int      @unique
+  usuario       Usuario   @relation(fields: [idUsuario], references: [idUsuario])
+  datosFam      DatosFam[]
+}
+
+model DatosFam {
+  idDatosFam    Int      @id @default(autoincrement())
+  nombre        String
+  apellidos     String
+  fechaNac      DateTime
+  idSolInt      Int
+  solicitudInterna SolicitudInterna @relation(fields: [idSolInt], references: [idSolInt])
+}
+
+model ExamenMedico {
+  idExamMed     Int      @id @default(autoincrement())
+  planta        String
+  fecha         DateTime
+  fechaNac      DateTime
+  alcoholismo   String?
+  deporte       String?
+  tabaquismo    String?
+  drogas        String?
+  fechaUltMens  DateTime?
+  metPlanFam    String?
+  numEmb        Int?
+  partos        Int?
+  cesareas      Int?
+  abortos       Int?
+  observaciones  String?
+  otraEnferm    String?
+  idUsuario      Int      @unique
+  usuario       Usuario   @relation(fields: [idUsuario], references: [idUsuario])
+  selecAntecPatolog SelecAntecPatolog[]
+  antecFam      AntecFam[]
+}
+
+model SelecAntecPatolog {
+  idSelecAntecPatolog Int @id @default(autoincrement())
+  idExamMed           Int
+  examenMedico       ExamenMedico @relation(fields: [idExamMed], references: [idExamMed])
+  idAntecPatolog     Int
+  antecPatolog       AntecPatolog @relation(fields: [idAntecPatolog], references: [idAntecPatolog])
+}
+
+model AntecPatolog {
+  idAntecPatolog Int @id @default(autoincrement())
+  nombre         String
+  selecAntecPatolog SelecAntecPatolog[]
+}
+
+model AntecFam {
+  idAntecFam     Int @id @default(autoincrement())
+  parentesco     String
+  edad           Int
+  enfermedad     String
+  causaMuerte    String
+  idExamMed      Int
+  examenMedico   ExamenMedico @relation(fields: [idExamMed], references: [idExamMed])
+}
+
+model ExploracionFisica {
+  idExpFis       Int      @id @default(autoincrement())
+  peso           Int
+  talla          Int
+  temperatura    Int
+  FR             Int
+  FC             Int
+  TA             Int
+  finkelstein    Int
+  tinel          Int
+  phalen         Int
+  observaciones  String?
+  movAnormales   Boolean
+  marcha         Boolean
+  comprension    Int
+  visionLejos    Int
+  visionCerca    Int
+  daltonismo     Int
+  OI             Int
+  OD             Int
+  calificacion   Int
+  piel           String
+  higiene        String
+  tipoPeso       String
+  lesionOcular   Int
+  lesionOido     Int
+  bocaDienEnc   Int
+  torax          Int
+  columVert      Int
+  extremidades   Int
+  capacEsp       String
+  calificacionFinal Int
+  idUsuario      Int      @unique
+  usuario        Usuario   @relation(fields: [idUsuario], references: [idUsuario])
+}
+
+model EntrevistaInicial {
+  idEntrevIni    Int      @id @default(autoincrement())
+  areaDirige     String
+  puesto          String
+  turno           String   @db.Char(1)
+  actualDedica    String
+  enteroEmpleo    String
+  numIngresos     Int?
+  enQueArea       String?
+  procesoLinea    String?
+  motivoRenuncia  String?
+  cant_hijos      Int?
+  edades_hijos    String?
+  cuidador        String?
+  trab_cuidador   String?
+  empresa1        String?
+  motivoSal1      String?
+  duracion1       String?
+  salario1        String?
+  horario1        String?
+  empresa2        String?
+  motivoSal2      String?
+  duracion2       String?
+  salario2        String?
+  horario2        String?
+  tiempoSinTrab   String?
+  tiempoSalida    String?
+  motivoNoTrab    String?
+  pendientes      String?
+  renta           Int?
+  fonacot         Int?
+  infonavit       Int?
+  antecedentesPen String?
+  fecha           DateTime
+  image           String
+  encinte         String
+  tricky          String
+  artesanal       String
+  comprension     String
+  vista           String
+  calificacion    String
+  comentarios     String
+  bonoContr      Int?
+  areaOPlanta    String
+  idUsuario      Int      @unique
+  usuario        Usuario   @relation(fields: [idUsuario], references: [idUsuario])
 }

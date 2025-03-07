@@ -4,11 +4,11 @@ BEGIN TRAN;
 
 -- CreateTable
 CREATE TABLE [dbo].[Video] (
-    [id] INT NOT NULL IDENTITY(1,1),
+    [idVideo] INT NOT NULL IDENTITY(1,1),
     [filename] NVARCHAR(1000) NOT NULL,
     [path] NVARCHAR(1000) NOT NULL,
     [createdAt] DATETIME2 NOT NULL CONSTRAINT [Video_createdAt_df] DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT [Video_pkey] PRIMARY KEY CLUSTERED ([id])
+    CONSTRAINT [Video_pkey] PRIMARY KEY CLUSTERED ([idVideo])
 );
 
 COMMIT TRAN;

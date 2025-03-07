@@ -37,10 +37,11 @@ app.use("/folio", folioRoutes);
 
 // Manejar conexiones de WebSocket
 io.on('connection', (socket) => {
-  console.log('Nuevo cliente conectado');
+  const clientIp = socket.handshake.address;
+  console.log(`Nuevo cliente conectado desde IP: ${clientIp}`);
 
   socket.on('disconnect', () => {
-    console.log('Cliente desconectado');
+    console.log(`Cliente desconectado desde IP: ${clientIp}`);
   });
 });
 
