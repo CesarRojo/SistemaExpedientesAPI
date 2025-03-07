@@ -43,7 +43,7 @@ const deleteVideo = (io) => async (req, res) => {
     try {
       // Buscar el video en la base de datos
       const video = await prisma.video.findUnique({
-        where: { id: parseInt(id) },
+        where: { idVideo: parseInt(id) },
       });
   
       if (!video) {
@@ -56,7 +56,7 @@ const deleteVideo = (io) => async (req, res) => {
   
       // Eliminar el video de la base de datos
       await prisma.video.delete({
-        where: { id: parseInt(id) },
+        where: { idVideo: parseInt(id) },
       });
 
       // Emitir evento de eliminación de video

@@ -17,7 +17,7 @@ const createFolio = async (data) => {
 
 //Delete folio
 const deleteFolio = async (id) => {
-    return await prisma.folio.delete({ where: { id: id } });
+    return await prisma.folio.delete({ where: { idFolio: id } });
 }
 
 module.exports = {
