@@ -37,7 +37,7 @@ model Roles {
 
 model Empleado {
   idEmpleado    Int      @id @default(autoincrement())
-  noReloj       String
+  noReloj       String   @unique
   password      String
   puesto        String
   createdAt     DateTime @default(now())

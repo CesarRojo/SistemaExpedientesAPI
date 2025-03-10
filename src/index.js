@@ -3,8 +3,12 @@ const cors = require('cors');
 const http = require('http');
 const socketIo = require('socket.io');
 
+const authRoutes = require('./routes/authRoutes');
 const videoRoutes = require('./routes/videoRoutes');
 const folioRoutes = require('./routes/folioRoutes');
+const rolesRoutes = require('./routes/rolesRoutes');
+const empleadoRoutes = require('./routes/empleadoRoutes');
+const usuarioRoutes = require('./routes/usuarioRoutes');
 
 const app = express();
 const server = http.createServer(app);
@@ -34,6 +38,10 @@ app.use("/uploads", express.static("uploads"));
 //============RUTAS============
 app.use("/api", videoRoutes(io));
 app.use("/folio", folioRoutes);
+app.use("/roles", rolesRoutes);
+app.use("/empleado", empleadoRoutes);
+app.use("/usuario", usuarioRoutes);
+app.use("/auth", authRoutes);
 
 // Manejar conexiones de WebSocket
 io.on('connection', (socket) => {

@@ -57,3 +57,25 @@ Folios
 - GET /folio/:id: Obtiene un folio por número de folio.
 - POST /folio: Crea un nuevo folio.
 - DELETE /folio/:id: Elimina un folio por ID.
+
+Roles
+- GET /roles: Obtiene todos los roles.
+- GET /roles/:id: Obtiene un rol por el ID.
+- POST /roles: Crea un nuevo rol.
+- PUT /roles/:id: Actualiza un rol usando el ID.
+- DELETE /roles/:id: Elimina un rol por su ID.
+
+Empleado
+- GET /empleado: Obtiene todos los empleados.
+- GET /empleado/:id: Obtiene un empleado por el ID.
+- POST /empleado: Crea un nuevo empleado.
+- PUT /empleado/:id: Actualiza un empleado usando el ID.
+- DELETE /empleado/:id: Elimina un empleado por su ID.
+
+Usuario
+- GET /usuario: Obtiene todos los usuarios.
+- GET /usuario/:id: Obtiene un usuario por el ID.
+- POST /usuario: Crea un nuevo usuario.
+- PUT /usuario/:id: Actualiza un usuario usando el ID.
+- DELETE /usuario/:id: Elimina un usuario por su ID.
+
