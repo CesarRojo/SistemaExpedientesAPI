@@ -10,6 +10,7 @@ Este proyecto es una API para el proyecto Sistema Expedientes utilizando Express
 - Prisma
 - Socket.IO
 - SQL Server
+- argon2
 
 ### Requisitos
 
@@ -79,3 +80,31 @@ Usuario
 - PUT /usuario/:id: Actualiza un usuario usando el ID.
 - DELETE /usuario/:id: Elimina un usuario por su ID.
 
+### JSON para POST
+
+1. Empleado
+    ```json
+    {
+        "noReloj": "147986", **Asegurarse que no se repita**
+        "password": "pass",
+        "puesto": "Desarrollador",
+        "idFolio": 3,  **Asegurar que no se repita**
+        "roles": [1,2] **Asegurarse de que sea un array**
+    }
+    ```
+
+2. Folio
+    ```json
+    {
+        "numFolio": 12345
+    }
+    ```
+
+3. Roles
+    ```json
+    {
+        "displayName": "NombreRol",
+        "key": "key",
+        "level": 4
+    }
+    ```

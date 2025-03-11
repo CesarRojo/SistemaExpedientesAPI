@@ -27,24 +27,33 @@ model Folio {
   Usuario       Usuario?
 }
 
-model Roles {
-  idRol         Int      @id @default(autoincrement())
-  displayName   String
-  key           String
-  level         Int
-  Empleado      Empleado[]
-}
-
 model Empleado {
   idEmpleado    Int      @id @default(autoincrement())
   noReloj       String   @unique
   password      String
   puesto        String
   createdAt     DateTime @default(now())
-  idFolio       Int      @unique
+  idFolio       Int?     @unique
+  folio         Folio?   @relation(fields: [idFolio], references: [idFolio])
+  roles         EmpleadoRol[]
+}
+
+model Roles {
+  idRol         Int      @id @default(autoincrement())
+  displayName   String
+  key           String
+  level         Int
+  empleados     EmpleadoRol[]
+}
+
+model EmpleadoRol {
+  idEmpleadoRol Int      @id @default(autoincrement())
+  idEmpleado    Int
   idRol         Int
-  folio         Folio     @relation(fields: [idFolio], references: [idFolio])
-  roles         Roles     @relation(fields: [idRol], references: [idRol])
+  empleado      Empleado @relation(fields: [idEmpleado], references: [idEmpleado])
+  rol           Roles    @relation(fields: [idRol], references: [idRol])
+
+  @@unique([idEmpleado, idRol])
 }
 
 model Usuario {

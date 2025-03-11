@@ -25,6 +25,16 @@ const getFolioByNum = async (req, res) => {
     }
 }
 
+//Get last folio
+const getLastFolio = async (req, res) => {
+    try {
+        const folio = await folioService.getLastFolio();
+        res.json(folio);
+    } catch (error) {
+        res.status(500).json({ error: '<<Failed to fetch last folio>>' });
+    }
+}
+
 //Create folio
 const createFolio = async (req, res) => {
     try {
@@ -49,6 +59,7 @@ const deleteFolio = async (req, res) => {
 module.exports = { 
     getAllFolios, 
     getFolioByNum, 
+    getLastFolio,
     createFolio, 
     deleteFolio 
 };

@@ -10,6 +10,15 @@ const getFolioByNum = async (num) => {
     return await prisma.folio.findUnique({ where: { numFolio: num } });
 }
 
+//Get the last inserted folio
+const getLastFolio = async () => {
+    return await prisma.folio.findFirst({
+        orderBy: {
+            idFolio: 'desc'
+        }
+    });
+}
+
 //Create folio
 const createFolio = async (data) => {
     return await prisma.folio.create({ data });
@@ -23,6 +32,7 @@ const deleteFolio = async (id) => {
 module.exports = {
     getAllFolios,
     getFolioByNum,
+    getLastFolio,
     createFolio,
     deleteFolio,
 }
