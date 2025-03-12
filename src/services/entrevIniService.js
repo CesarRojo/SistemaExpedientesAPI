@@ -14,7 +14,9 @@ const getEntrevIniById = async (id) => {
 
 //Create entrevIni
 const createEntrevIni = async (data) => {
+    console.log("servicio:",data.fecha, typeof data.fecha);
     const { usuario, ...entrevIniData } = data;
+    console.log(data);
 
     return await prisma.entrevIni.create({
         data: {

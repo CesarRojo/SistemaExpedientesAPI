@@ -28,6 +28,11 @@ const getEntrevIniById = async (req, res) => {
 //Create entrevIni
 const createEntrevIni = async (req, res) => {
     try {
+        // Convertir la fecha de string a Date
+        if (req.body.fecha) {
+            req.body.fecha = new Date(req.body.fecha);
+        }
+        console.log(req.body.fecha, typeof req.body.fecha);
         const entrevIni = await entrevIniService.createEntrevIni(req.body);
         res.status(201).json(entrevIni);
     } catch (error) {
