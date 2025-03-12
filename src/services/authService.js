@@ -32,4 +32,23 @@ const loginService = async (username, password) => {
   }
 };
 
-module.exports = { loginService };
+const loginFolioService = async (folio) => {
+  try {
+    const user = await prisma.folio.findUnique({
+      where: { numFolio: folio },
+    });
+
+    if (!user) {
+      console.log("Usuario no encontrado");
+      return null;
+    }
+
+    console.log("Usuario encontrado:", user);
+    return user;
+  } catch (error) {
+    console.error("Error en loginService:", error);
+    return null;
+  }
+};
+
+module.exports = { loginService, loginFolioService };

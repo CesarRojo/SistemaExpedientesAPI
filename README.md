@@ -55,6 +55,7 @@ Videos
 
 Folios
 - GET /folio: Obtiene todos los folios.
+- GET /folio/last: Obtiene el ultimo folio insertado en la bd.
 - GET /folio/:id: Obtiene un folio por número de folio.
 - POST /folio: Crea un nuevo folio.
 - DELETE /folio/:id: Elimina un folio por ID.

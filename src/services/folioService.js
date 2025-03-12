@@ -7,7 +7,7 @@ const getAllFolios = async () => {
 
 //Get folio by num
 const getFolioByNum = async (num) => {
-    return await prisma.folio.findUnique({ where: { numFolio: num } });
+    return await prisma.folio.findUnique({ where: { numFolio: num }, include: { Usuario: true } });
 }
 
 //Get the last inserted folio

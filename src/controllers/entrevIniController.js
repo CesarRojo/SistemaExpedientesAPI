@@ -3,7 +3,7 @@ const entrevIniService = require('../services/entrevIniService');
 //Get all entrevInis
 const getAllEntrevIni = async (req, res) => {
     try {
-        const entrevInis = await entrevIniService.getAllEntrevInis();
+        const entrevInis = await entrevIniService.getAllEntrevIni();
         res.json(entrevInis);
     } catch (error) {
         res.status(500).json({ error: '<<Failed to fetch entrevInis>>' });
@@ -29,10 +29,10 @@ const getEntrevIniById = async (req, res) => {
 const createEntrevIni = async (req, res) => {
     try {
         // Convertir la fecha de string a Date
-        if (req.body.fecha) {
-            req.body.fecha = new Date(req.body.fecha);
+        if (req.body.entrevIniData.fecha) {
+            req.body.entrevIniData.fecha = new Date(req.body.entrevIniData.fecha);
         }
-        console.log(req.body.fecha, typeof req.body.fecha);
+        console.log(req.body.entrevIniData.fecha, typeof req.body.entrevIniData.fecha);
         const entrevIni = await entrevIniService.createEntrevIni(req.body);
         res.status(201).json(entrevIni);
     } catch (error) {
