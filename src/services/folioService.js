@@ -5,6 +5,15 @@ const getAllFolios = async () => {
     return await prisma.folio.findMany();
 }
 
+//Get folio by id
+const getFolioById = async (id) => {
+    return await prisma.folio.findUnique({ where: { idFolio: id }, 
+        include: {
+            Usuario: true,
+            Empleado: true,
+        } });
+}
+
 //Get folio by num
 const getFolioByNum = async (num) => {
     return await prisma.folio.findUnique({ where: { numFolio: num }, include: { Usuario: true } });
@@ -31,6 +40,7 @@ const deleteFolio = async (id) => {
 
 module.exports = {
     getAllFolios,
+    getFolioById,
     getFolioByNum,
     getLastFolio,
     createFolio,

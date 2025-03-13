@@ -20,7 +20,7 @@ const loginFolio = async (req, res) => {
   console.log("folio controller",folio);
   try {
     const user = await loginFolioService(folio);
-    console.log("userController: ",user);
+    console.log("userControllerFolio: ",user);
     if (user) {
       res.status(200).json({ user });
     } else {

@@ -10,6 +10,7 @@ const rolesRoutes = require('./routes/rolesRoutes');
 const empleadoRoutes = require('./routes/empleadoRoutes');
 const usuarioRoutes = require('./routes/usuarioRoutes');
 const entrevIniRoutes = require('./routes/entrevIniRoutes');
+const examMedicoRoutes = require('./routes/examMedicoRoutes');
 
 const app = express();
 const server = http.createServer(app);
@@ -43,6 +44,7 @@ app.use("/roles", rolesRoutes);
 app.use("/empleado", empleadoRoutes);
 app.use("/usuario", usuarioRoutes);
 app.use("/entrevIni", entrevIniRoutes);
+app.use("/examMedico", examMedicoRoutes);
 app.use("/auth", authRoutes);
 
 // Manejar conexiones de WebSocket

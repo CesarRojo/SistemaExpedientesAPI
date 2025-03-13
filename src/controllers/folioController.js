@@ -10,6 +10,21 @@ const getAllFolios = async (req, res) => {
     }
 }
 
+//Get folio by id
+const getFolioById = async (req, res) => {
+    try {
+        const id = parseInt(req.params.id);
+        const folio = await folioService.getFolioById(id);
+        if (folio){
+            res.json(folio);
+        }else{
+            res.status(404).json({ error: '<<Folio not found>>'});
+        }
+    } catch (error) {
+        res.status(500).json({ error: '<<Failed to fetch folio by id>>'});
+    }
+}
+
 //Get folio by num
 const getFolioByNum = async (req, res) => {
     try {
@@ -59,6 +74,7 @@ const deleteFolio = async (req, res) => {
 module.exports = { 
     getAllFolios, 
     getFolioByNum, 
+    getFolioById,
     getLastFolio,
     createFolio, 
     deleteFolio 

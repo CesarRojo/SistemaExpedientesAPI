@@ -7,6 +7,7 @@ const router = express.Router();
 router.get('/', folioController.getAllFolios);
 router.get('/last', folioController.getLastFolio);
 router.get('/:id', folioController.getFolioByNum);
+router.get('/ident/:id', folioController.getFolioById);
 router.post('/', folioController.createFolio);
 router.delete('/:id', folioController.deleteFolio);
 

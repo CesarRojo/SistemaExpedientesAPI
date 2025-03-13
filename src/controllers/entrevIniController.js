@@ -45,9 +45,9 @@ const updateEntrevIni = async (req, res) => {
     try {
         const id = parseInt(req.params.id);
         const entrevIni = await entrevIniService.updateEntrevIni(id, req.body);
-        res.json(entrevIni);
+        res.status(200).json(entrevIni);
     } catch (error) {
-        res.status(400).json({ error: '<<Failed to update entrevIni>>' });
+        res.status(500).json({ error: '<<Failed to update entrevIni>>' });
     }
 }
 

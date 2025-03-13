@@ -5,6 +5,28 @@ const loginService = async (username, password) => {
   try {
     const user = await prisma.empleado.findUnique({
       where: { noReloj: username },
+      include: {
+        folio: {
+          include: {
+            Usuario: {
+              select: {
+                idUsuario: true,
+                nombre: true,
+                apellidoPat: true,
+              }
+            }
+          }
+        },
+        roles: { //Este se supone es la tabla intermedia EmpleadoRol, solo que se usa el nombre que tiene el campo en la tabla Empleado
+          select: {
+            rol: {
+              select: {
+                level: true,
+              }
+            }
+          }
+        }
+      }
     });
 
     if (!user) {
@@ -36,6 +58,15 @@ const loginFolioService = async (folio) => {
   try {
     const user = await prisma.folio.findUnique({
       where: { numFolio: folio },
+      include: {
+        Usuario: {
+          select: {
+            idUsuario: true,
+            nombre: true,
+            apellidoPat: true,
+          }
+        }
+      }
     });
 
     if (!user) {
