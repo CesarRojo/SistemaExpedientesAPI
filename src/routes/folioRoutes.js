@@ -9,6 +9,7 @@ router.get('/last', folioController.getLastFolio);
 router.get('/:id', folioController.getFolioByNum);
 router.get('/ident/:id', folioController.getFolioById);
 router.post('/', folioController.createFolio);
+router.put('/extras/:id', folioController.markVideosAsWatched);
 router.delete('/:id', folioController.deleteFolio);
 
 module.exports = router;

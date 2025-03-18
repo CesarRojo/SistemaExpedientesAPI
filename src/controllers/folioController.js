@@ -60,6 +60,17 @@ const createFolio = async (req, res) => {
     }
 }
 
+//Mark videos as watched
+const markVideosAsWatched = async (req, res) => {
+    try {
+        const id = parseInt(req.params.id);
+        const watched = await folioService.markVideosAsWatched(id);
+        res.json(watched);
+    } catch (error) {
+        res.status(400).json({ error: '<<Failed to mark videos as watched>>' });
+    }
+}
+
 //Delete folio
 const deleteFolio = async (req, res) => {
     try {
@@ -77,5 +88,6 @@ module.exports = {
     getFolioById,
     getLastFolio,
     createFolio, 
-    deleteFolio 
+    deleteFolio,
+    markVideosAsWatched,
 };

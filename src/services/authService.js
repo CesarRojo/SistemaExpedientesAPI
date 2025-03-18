@@ -5,19 +5,21 @@ const loginService = async (username, password) => {
   try {
     const user = await prisma.empleado.findUnique({
       where: { noReloj: username },
-      include: {
+      select: { // Cambia de include a select
+        password: true,
+        noReloj: true,
         folio: {
-          include: {
+          select: { // Solo selecciona los campos que deseas de Folio
             Usuario: {
               select: {
                 idUsuario: true,
                 nombre: true,
                 apellidoPat: true,
               }
-            }
+            },
           }
         },
-        roles: { //Este se supone es la tabla intermedia EmpleadoRol, solo que se usa el nombre que tiene el campo en la tabla Empleado
+        roles: { // Selecciona solo el nivel de rol
           select: {
             rol: {
               select: {
@@ -64,6 +66,11 @@ const loginFolioService = async (folio) => {
             idUsuario: true,
             nombre: true,
             apellidoPat: true,
+          }
+        },
+        Extras: {
+          select: {
+            vioVideos: true,
           }
         }
       }

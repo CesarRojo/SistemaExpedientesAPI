@@ -30,8 +30,24 @@ const getLastFolio = async () => {
 
 //Create folio
 const createFolio = async (data) => {
-    return await prisma.folio.create({ data });
+    return await prisma.folio.create({ 
+        data: {
+            numFolio: data.numFolio,
+            Extras: {
+                create: {
+                    vioVideos: false,
+                }
+            }
+        }
+    });
 }
+
+const markVideosAsWatched = async (idFolio) => {
+    await prisma.extras.update({
+        where: { idFolio: idFolio },
+        data: { vioVideos: true }
+    });
+};
 
 //Delete folio
 const deleteFolio = async (id) => {
@@ -45,4 +61,5 @@ module.exports = {
     getLastFolio,
     createFolio,
     deleteFolio,
+    markVideosAsWatched,
 }

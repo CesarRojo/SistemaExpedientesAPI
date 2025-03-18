@@ -20,11 +20,19 @@ model Video {
   createdAt     DateTime @default(now())
 }
 
+model Extras {
+  idExtras     Int    @id @default(autoincrement())
+  idFolio      Int    @unique
+  vioVideos    Boolean @default(false) // Indica si el usuario ha visto todos los videos
+  folio        Folio  @relation(fields: [idFolio], references: [idFolio], onDelete: Cascade)
+}
+
 model Folio {
   idFolio       Int    @id @default(autoincrement())
   numFolio      Int    @unique
   Empleado      Empleado?
   Usuario       Usuario?
+  Extras        Extras?
 }
 
 model Empleado {
@@ -34,7 +42,7 @@ model Empleado {
   puesto        String
   createdAt     DateTime @default(now())
   idFolio       Int?     @unique
-  folio         Folio?   @relation(fields: [idFolio], references: [idFolio])
+  folio         Folio?   @relation(fields: [idFolio], references: [idFolio], onDelete: Cascade)
   roles         EmpleadoRol[]
 }
 
@@ -50,8 +58,8 @@ model EmpleadoRol {
   idEmpleadoRol Int      @id @default(autoincrement())
   idEmpleado    Int
   idRol         Int
-  empleado      Empleado @relation(fields: [idEmpleado], references: [idEmpleado])
-  rol           Roles    @relation(fields: [idRol], references: [idRol])
+  empleado      Empleado @relation(fields: [idEmpleado], references: [idEmpleado], onDelete: Cascade)
+  rol           Roles    @relation(fields: [idRol], references: [idRol], onDelete: Cascade)
 
   @@unique([idEmpleado, idRol])
 }
@@ -71,7 +79,7 @@ model Usuario {
   colonia        String
   escolaridad    String
   idFolio        Int      @unique
-  folio          Folio     @relation(fields: [idFolio], references: [idFolio])
+  folio          Folio     @relation(fields: [idFolio], references: [idFolio], onDelete: Cascade)
   solicitudInterna SolicitudInterna? @relation
   examenMedico   ExamenMedico? @relation
   exploracionFisica ExploracionFisica? @relation
@@ -92,7 +100,7 @@ model SolicitudInterna {
   municipio     String
   viveCon       String
   idUsuario      Int      @unique
-  usuario       Usuario   @relation(fields: [idUsuario], references: [idUsuario])
+  usuario       Usuario   @relation(fields: [idUsuario], references: [idUsuario], onDelete: Cascade)
   datosFam      DatosFam[]
 }
 
@@ -102,7 +110,7 @@ model DatosFam {
   apellidos     String
   fechaNac      DateTime
   idSolInt      Int
-  solicitudInterna SolicitudInterna @relation(fields: [idSolInt], references: [idSolInt])
+  solicitudInterna SolicitudInterna @relation(fields: [idSolInt], references: [idSolInt], onDelete: Cascade)
 }
 
 model ExamenMedico {
@@ -123,7 +131,7 @@ model ExamenMedico {
   observaciones  String?
   otraEnferm    String?
   idUsuario      Int      @unique
-  usuario       Usuario   @relation(fields: [idUsuario], references: [idUsuario])
+  usuario       Usuario   @relation(fields: [idUsuario], references: [idUsuario], onDelete: Cascade)
   selecAntecPatolog SelecAntecPatolog[]
   antecFam      AntecFam[]
 }
@@ -131,9 +139,9 @@ model ExamenMedico {
 model SelecAntecPatolog {
   idSelecAntecPatolog Int @id @default(autoincrement())
   idExamMed           Int
-  examenMedico       ExamenMedico @relation(fields: [idExamMed], references: [idExamMed])
+  examenMedico       ExamenMedico @relation(fields: [idExamMed], references: [idExamMed], onDelete: Cascade)
   idAntecPatolog     Int
-  antecPatolog       AntecPatolog @relation(fields: [idAntecPatolog], references: [idAntecPatolog])
+  antecPatolog       AntecPatolog @relation(fields: [idAntecPatolog], references: [idAntecPatolog], onDelete: Cascade)
 }
 
 model AntecPatolog {
@@ -149,7 +157,7 @@ model AntecFam {
   enfermedad     String
   causaMuerte    String
   idExamMed      Int
-  examenMedico   ExamenMedico @relation(fields: [idExamMed], references: [idExamMed])
+  examenMedico   ExamenMedico @relation(fields: [idExamMed], references: [idExamMed], onDelete: Cascade)
 }
 
 model ExploracionFisica {
@@ -185,7 +193,7 @@ model ExploracionFisica {
   capacEsp       String
   calificacionFinal Int
   idUsuario      Int      @unique
-  usuario        Usuario   @relation(fields: [idUsuario], references: [idUsuario])
+  usuario        Usuario   @relation(fields: [idUsuario], references: [idUsuario], onDelete: Cascade)
 }
 
 model EntrevistaInicial {
@@ -233,5 +241,5 @@ model EntrevistaInicial {
   bonoContr      Int?
   areaOPlanta    String
   idUsuario      Int      @unique
-  usuario        Usuario   @relation(fields: [idUsuario], references: [idUsuario])
+  usuario        Usuario   @relation(fields: [idUsuario], references: [idUsuario], onDelete: Cascade)
 }
