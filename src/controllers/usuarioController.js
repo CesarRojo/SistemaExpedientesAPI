@@ -25,6 +25,21 @@ const getUsuarioById = async (req, res) => {
     }
 }
 
+//Get usuario by idFolio
+const getUsuarioByIdFolio = async (req, res) => {
+    try {
+        const id = parseInt(req.params.id);
+        const usuario = await usuarioService.getUsuarioByIdFolio(id);
+        if(usuario){
+            res.json(usuario);
+        }else{
+            res.status(404).json({ error: '<<Usuario not found>>' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: '<<Failed to fetch usuario by idFolio>>' });
+    }
+}
+
 //Create usuario
 const createUsuario = async (req, res) => {
     try {
@@ -60,6 +75,7 @@ const deleteUsuario = async (req, res) => {
 module.exports = {
     getAllUsuarios,
     getUsuarioById,
+    getUsuarioByIdFolio,
     createUsuario,
     updateUsuario,
     deleteUsuario,

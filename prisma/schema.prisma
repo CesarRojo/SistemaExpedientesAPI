@@ -154,8 +154,8 @@ model AntecFam {
   idAntecFam     Int @id @default(autoincrement())
   parentesco     String
   edad           Int
-  enfermedad     String
-  causaMuerte    String
+  enfermedad     String?
+  causaMuerte    String?
   idExamMed      Int
   examenMedico   ExamenMedico @relation(fields: [idExamMed], references: [idExamMed], onDelete: Cascade)
 }

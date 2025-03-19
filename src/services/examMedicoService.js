@@ -29,22 +29,52 @@ const getExamMedicoById = async (id) => {
     });
 }
 
-//Create examMedico
+// Create examMedico
 const createExamMedico = async (data) => {
-    const { examMedicoData } = data;
+    const { examMedicoData, antecFam, selecAntecPatolog } = data;
 
-    console.log(data);
+    console.log("datos examMedico:",data);
+    // console.log("datos examMedico:",examMedicoData);
+    // console.log("datos antecFam:",antecFam);
+    // console.log("datos selectAntecPatolog:",selecAntecPatolog);
 
-    if (!usuario || !examMedicoData) {
-        throw new Error('Datos incompletos para crear ExamMedico');
+    if (!examMedicoData || !antecFam) {
+        throw new Error('Datos incompletos para crear Examen Médico');
     }
 
     try {
-        return await prisma.examenMedico.create({
+        const examenMedico = await prisma.examenMedico.create({
             data: {
                 ...examMedicoData,
+                // Inserción anidada para antecedentes familiares
+                antecFam: {
+                    create: antecFam.map(fam => ({
+                        parentesco: fam.parentesco,
+                        edad: fam.edad,
+                        enfermedad: fam.enfermedad,
+                        causaMuerte: fam.causaMuerte,
+                    })),
+                },
+                // Inserción anidada para selección de antecedentes patológicos
+                selecAntecPatolog: {
+                    create: selecAntecPatolog.map(idAntecPatolog => ({
+                        antecPatolog: {
+                            connect: { idAntecPatolog: idAntecPatolog }
+                        }
+                    })),
+                },
+            },
+            include: {
+                antecFam: true,
+                selecAntecPatolog: {
+                    include: {
+                        antecPatolog: true,
+                    }
+                }
             }
         });
+
+        return examenMedico;
     } catch (error) {
         throw new Error(error);
     }
