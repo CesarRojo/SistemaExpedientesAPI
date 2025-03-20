@@ -1,0 +1,23 @@
+BEGIN TRY
+
+BEGIN TRAN;
+
+-- AlterTable
+ALTER TABLE [dbo].[AntecFam] ALTER COLUMN [enfermedad] NVARCHAR(1000) NULL;
+ALTER TABLE [dbo].[AntecFam] ALTER COLUMN [causaMuerte] NVARCHAR(1000) NULL;
+
+-- AlterTable
+ALTER TABLE [dbo].[ExploracionFisica] ALTER COLUMN [calificacionFinal] NVARCHAR(1000) NOT NULL;
+
+COMMIT TRAN;
+
+END TRY
+BEGIN CATCH
+
+IF @@TRANCOUNT > 0
+BEGIN
+    ROLLBACK TRAN;
+END;
+THROW
+
+END CATCH

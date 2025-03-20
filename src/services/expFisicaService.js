@@ -12,6 +12,7 @@ const getExpFisicaById = async (id) => {
 
 //Create explorFisica
 const createExpFisica = async (data) => {
+    console.log(data);
     return await prisma.exploracionFisica.create({ data });
 }
 

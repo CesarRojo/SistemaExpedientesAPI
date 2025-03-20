@@ -13,6 +13,7 @@ const entrevIniRoutes = require('./routes/entrevIniRoutes');
 const examMedicoRoutes = require('./routes/examMedicoRoutes');
 const antecPatologRoutes = require('./routes/antecPatologRoutes');
 const expFisicaRoutes = require('./routes/expFisicaRoutes');
+const solicIntRoutes = require('./routes/solicIntRoutes');
 
 const app = express();
 const server = http.createServer(app);
@@ -49,6 +50,7 @@ app.use("/entrevIni", entrevIniRoutes);
 app.use("/examMedico", examMedicoRoutes);
 app.use("/antecPatolog", antecPatologRoutes);
 app.use("/expFisica", expFisicaRoutes);
+app.use("/solicInt", solicIntRoutes);
 app.use("/auth", authRoutes);
 
 // Manejar conexiones de WebSocket

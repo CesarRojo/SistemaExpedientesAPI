@@ -2,17 +2,17 @@ const prisma = require('../prisma/prismaClient');
 
 //Get all usuarios
 const getAllUsuarios = async () => {
-    return await prisma.usuario.findMany({ include: { entrevistaInicial: true } });
+    return await prisma.usuario.findMany({ include: { entrevistaInicial: true, examenMedico: true, exploracionFisica: true, solicitudInterna: true, } });
 }
 
 //Get usuario by id
 const getUsuarioById = async (id) => {
-    return await prisma.usuario.findUnique({ where: { idUsuario: id }, include: { entrevistaInicial: true } });
+    return await prisma.usuario.findUnique({ where: { idUsuario: id }, include: { entrevistaInicial: true, examenMedico: true, exploracionFisica: true, solicitudInterna: true, } });
 }
 
 //Get usuario by idFolio
 const getUsuarioByIdFolio = async (id) => {
-    return await prisma.usuario.findUnique({ where: { idFolio: id }, include: { entrevistaInicial: true, examenMedico: true, } });
+    return await prisma.usuario.findUnique({ where: { idFolio: id }, include: { entrevistaInicial: true, examenMedico: true, exploracionFisica: true, solicitudInterna: true, } });
 }
 
 //Create usuario

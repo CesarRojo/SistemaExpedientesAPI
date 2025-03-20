@@ -69,6 +69,7 @@ model Usuario {
   nombre         String
   apellidoPat    String
   apellidoMat    String
+  fechaNac       DateTime
   sexo           String   @db.Char(1)
   edad           Int
   estado_civil   String
@@ -89,7 +90,6 @@ model Usuario {
 model SolicitudInterna {
   idSolInt      Int      @id @default(autoincrement())
   fecha         DateTime
-  fechaNac      DateTime
   lugarNac      String
   RFC           String
   CURP          String
@@ -106,6 +106,7 @@ model SolicitudInterna {
 
 model DatosFam {
   idDatosFam    Int      @id @default(autoincrement())
+  parentesco    String
   nombre        String
   apellidos     String
   fechaNac      DateTime
@@ -117,7 +118,6 @@ model ExamenMedico {
   idExamMed     Int      @id @default(autoincrement())
   planta        String
   fecha         DateTime
-  fechaNac      DateTime
   alcoholismo   String?
   deporte       String?
   tabaquismo    String?
@@ -191,7 +191,7 @@ model ExploracionFisica {
   columVert      Int
   extremidades   Int
   capacEsp       String
-  calificacionFinal Int
+  calificacionFinal String
   idUsuario      Int      @unique
   usuario        Usuario   @relation(fields: [idUsuario], references: [idUsuario], onDelete: Cascade)
 }
