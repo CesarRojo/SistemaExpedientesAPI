@@ -28,10 +28,8 @@ const getEntrevIniById = async (id) => {
 }
 
 //Create entrevIni
-const createEntrevIni = async (data) => {
+const createEntrevIni = async (data, io) => {
     const { usuario, numFolio, entrevIniData } = data;
-
-    console.log(data);
 
     if (!usuario || !numFolio || !entrevIniData) {
         throw new Error('Datos incompletos para crear EntrevIni');
@@ -42,7 +40,7 @@ const createEntrevIni = async (data) => {
     //connectOrCreate se usa para saber si el folio ya existe o se necesita crear uno nuevo.
     //connectOrCreate NO hace la relacion con usuario, la relacion se hace al momento del create de usuario.
     try {
-        return await prisma.entrevistaInicial.create({
+        const newEntrevIni = await prisma.entrevistaInicial.create({
             data: {
                 ...entrevIniData,
                 usuario: {
@@ -58,6 +56,12 @@ const createEntrevIni = async (data) => {
                 }
             }
         });
+
+        // Emitir un evento después de crear la entrevista inicial
+        io.emit('newEntrevIni', newEntrevIni);
+
+        return newEntrevIni;
+
     } catch (error) {
         console.error('Error creating EntrevIni:', error);
         throw error; // Re-lanzar el error para que sea manejado en el controlador

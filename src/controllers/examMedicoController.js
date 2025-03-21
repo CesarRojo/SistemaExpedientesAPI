@@ -26,13 +26,13 @@ const getExamMedicoById = async (req, res) => {
 }
 
 //Create examMedico
-const createExamMedico = async (req, res) => {
+const createExamMedico = async (req, res, io) => {
     try {
         if(req.body.examMedicoData.fecha && req.body.examMedicoData.fechaNac){
             req.body.examMedicoData.fecha = new Date(req.body.examMedicoData.fecha);
             req.body.examMedicoData.fechaNac = new Date(req.body.examMedicoData.fechaNac);
         }
-        const examMedico = await examenMedicoService.createExamMedico(req.body);
+        const examMedico = await examenMedicoService.createExamMedico(req.body, io);
         res.status(201).json(examMedico);
     } catch (error) {
         res.status(400).json({ error: '<<Failed to create examen medico>>' });

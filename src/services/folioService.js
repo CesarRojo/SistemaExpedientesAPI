@@ -49,6 +49,19 @@ const markVideosAsWatched = async (idFolio) => {
     });
 };
 
+const confirmVideosWatched = async (numFolio) => {
+    return await prisma.extras.findUnique({
+        where: {
+            folio: {
+                numFolio: numFolio
+            }
+        },
+        include: {
+            folio: true,
+        }
+    });
+};
+
 //Delete folio
 const deleteFolio = async (id) => {
     return await prisma.folio.delete({ where: { idFolio: id } });
@@ -62,4 +75,5 @@ module.exports = {
     createFolio,
     deleteFolio,
     markVideosAsWatched,
+    confirmVideosWatched,
 }

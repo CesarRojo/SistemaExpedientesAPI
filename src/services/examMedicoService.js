@@ -30,7 +30,7 @@ const getExamMedicoById = async (id) => {
 }
 
 // Create examMedico
-const createExamMedico = async (data) => {
+const createExamMedico = async (data, io) => {
     const { examMedicoData, antecFam, selecAntecPatolog } = data;
 
     console.log("datos examMedico:",data);
@@ -73,6 +73,8 @@ const createExamMedico = async (data) => {
                 }
             }
         });
+
+        io.emit('newExamMed', examenMedico);
 
         return examenMedico;
     } catch (error) {

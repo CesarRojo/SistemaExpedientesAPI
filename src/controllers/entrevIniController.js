@@ -26,7 +26,7 @@ const getEntrevIniById = async (req, res) => {
 }
 
 //Create entrevIni
-const createEntrevIni = async (req, res) => {
+const createEntrevIni = async (req, res, io) => {
     try {
         // Convertir la fecha de string a Date
         if (req.body.entrevIniData.fecha) {
@@ -35,7 +35,7 @@ const createEntrevIni = async (req, res) => {
         }
         console.log(req.body.entrevIniData.fecha, typeof req.body.entrevIniData.fecha);
         console.log(req.body.usuario.fechaNac, typeof req.body.usuario.fechaNac);
-        const entrevIni = await entrevIniService.createEntrevIni(req.body);
+        const entrevIni = await entrevIniService.createEntrevIni(req.body, io);
         res.status(201).json(entrevIni);
     } catch (error) {
         res.status(400).json({ error: '<<Failed to create entrevIni>>' });

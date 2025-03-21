@@ -3,11 +3,13 @@ const entrevIniController = require('../controllers/entrevIniController');
 
 const router = express.Router();
 
-//Routes
-router.get('/', entrevIniController.getAllEntrevIni);
-router.get('/:id', entrevIniController.getEntrevIniById);
-router.post('/', entrevIniController.createEntrevIni);
-router.put('/:id', entrevIniController.updateEntrevIni);
-router.delete('/:id', entrevIniController.deleteEntrevIni);
+// Exportar una función que recibe `io` y configura las rutas
+module.exports = (io) => {
+    router.get('/', entrevIniController.getAllEntrevIni);
+    router.get('/:id', entrevIniController.getEntrevIniById);
+    router.post('/', (req, res) => {entrevIniController.createEntrevIni(req, res, io)}); // Pasar req, res e io
+    router.put('/:id', entrevIniController.updateEntrevIni);
+    router.delete('/:id', entrevIniController.deleteEntrevIni);
 
-module.exports = router;
+    return router;
+};

@@ -46,7 +46,7 @@ app.use("/folio", folioRoutes);
 app.use("/roles", rolesRoutes);
 app.use("/empleado", empleadoRoutes);
 app.use("/usuario", usuarioRoutes);
-app.use("/entrevIni", entrevIniRoutes);
+app.use("/entrevIni", entrevIniRoutes(io));
 app.use("/examMedico", examMedicoRoutes);
 app.use("/antecPatolog", antecPatologRoutes);
 app.use("/expFisica", expFisicaRoutes);
