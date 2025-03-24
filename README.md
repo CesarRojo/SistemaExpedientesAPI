@@ -2,7 +2,7 @@
 
 Este proyecto es una API para el proyecto Sistema Expedientes utilizando Express, Prisma y Socket.IO.
 
-## Tecnologías Utilizadas
+### Tecnologías Utilizadas
 
 - Node.js (v14 o superior)
 - npm (v6 o superior)
@@ -57,7 +57,9 @@ Folios
 - GET /folio: Obtiene todos los folios.
 - GET /folio/last: Obtiene el ultimo folio insertado en la bd.
 - GET /folio/:id: Obtiene un folio por número de folio.
+- GET /ident/:id: Obtiene un folio por el idFolio.
 - POST /folio: Crea un nuevo folio.
+- PUT /folio/extras/:id: Actualiza el estado en una tabla extras para saber si el usuario ha visto todos los videos
 - DELETE /folio/:id: Elimina un folio por ID.
 
 Roles
@@ -77,9 +79,43 @@ Empleado
 Usuario
 - GET /usuario: Obtiene todos los usuarios.
 - GET /usuario/:id: Obtiene un usuario por el ID.
+- GET /usuario/folio/:id: Obtiene un usuario por el idFolio.
 - POST /usuario: Crea un nuevo usuario.
 - PUT /usuario/:id: Actualiza un usuario usando el ID.
 - DELETE /usuario/:id: Elimina un usuario por su ID.
+
+SolicitudInterna
+- GET /solicInt: Obtiene todas las solicitudes internas
+- GET /solicInt/:id: Obtiene una solicitud interna por idSolInt
+- POST /solicInt: Crea una solicitud interna
+- DELETE /solicInt/:id: Elimina una solicitud interna
+
+ExploracionFisica
+- GET /expFisica: Obtiene todas las exploraciones fisicas
+- GET /expFisica/:id: Obtiene una exploracion fisica por idExpFis
+- POST /expFisica: Crea una exploracion fisica
+- DELETE /expFisica/:id: Elimina una exploracion fisica
+
+ExamenMedico
+- GET /examMedico: Obtiene todos los examenes medicos
+- GET /examMedico/:id: Obtiene un examen medico por idExamMed
+- POST /examMedico: Crea un examen medico
+- PUT /examMedico/:id: Actualiza un examen medico
+- DELETE /examMedico/:id: Elimina un examen medico
+
+EntrevistaInicial
+- GET /entrevIni: Obtiene todas las entrevistas iniciales
+- GET /entrevIni/:id: Obtiene una entrevista inicial por idEntrevIni
+- POST /entrevIni: Crea una entrevista inicial
+- PUT /entrevIni/:id: Actualiza una entrevista inicial
+- DELETE /entrevIni/:id: Elimina una entrevista inicial
+
+Auth
+- POST /auth/login: Login para empleados (que ya tienen noReloj)
+- POST /auth/loginFolio: Login para usuarios (que usan folio)
+
+AntecedentesPatologicos
+- GET /antecPatolog: Obtiene todos los antecedentes patologicos
 
 ### JSON para POST
 
@@ -97,7 +133,7 @@ Usuario
 2. Folio
     ```json
     {
-        "numFolio": 12345
+        "numFolio": 1008
     }
     ```
 
