@@ -10,6 +10,17 @@ const getAllEntrevIni = async (req, res) => {
     }
 }
 
+//Get all entrevIni by fecha
+const getAllEntrevIniByFecha = async (req, res) => {
+    try {
+        const fechaFiltro = req.query.fecha; // Obtener el filtro de fecha de los parámetros de consulta
+        const entrevIni = await entrevIniService.getAllEntrevIniByFecha(fechaFiltro);
+        res.json(entrevIni);
+    } catch (error) {
+        res.status(500).json({ error: '<<Failed to fetch entrevIni by fecha>>' });
+    }
+};
+
 //Get entrevIni by id
 const getEntrevIniById = async (req, res) => {
     try {
@@ -66,6 +77,7 @@ const deleteEntrevIni = async (req, res) => {
 
 module.exports = {
     getAllEntrevIni,
+    getAllEntrevIniByFecha,
     getEntrevIniById,
     createEntrevIni,
     updateEntrevIni,

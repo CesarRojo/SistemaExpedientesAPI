@@ -25,6 +25,17 @@ const getExamMedicoById = async (req, res) => {
     }
 }
 
+//Get all examMed by fecha
+const getAllExamMedByFecha = async (req, res) => {
+    try {
+        const fechaFiltro = req.query.fecha; // Obtener el filtro de fecha de los parámetros de consulta
+        const examMed = await examenMedicoService.getAllExamMedByFecha(fechaFiltro);
+        res.json(examMed);
+    } catch (error) {
+        res.status(500).json({ error: '<<Failed to fetch examMed by fecha>>' });
+    }
+};
+
 //Create examMedico
 const createExamMedico = async (req, res, io) => {
     try {
@@ -64,6 +75,7 @@ const deleteExamMedico = async (req, res) => {
 module.exports = {
     getAllExamMedico,
     getExamMedicoById,
+    getAllExamMedByFecha,
     createExamMedico,
     updateExamMedico,
     deleteExamMedico,

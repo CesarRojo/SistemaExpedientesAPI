@@ -2,32 +2,60 @@ const prisma = require('../prisma/prismaClient');
 
 //Get all examMedico
 const getAllExamMedico = async () => {
-    return await prisma.examenMedico.findMany({ 
+    try {
+        return await prisma.examenMedico.findMany({ 
+            include: { 
+                usuario: true,
+                selecAntecPatolog: {
+                    include: {
+                        antecPatolog: true,
+                    }
+                }
+            }
+        });
+    } catch (error) {
+        console.error('Error en getAllExamMedico:', error);
+        throw error;
+    }
+};
+
+//Get examMedico by id
+const getExamMedicoById = async (id) => {
+    return await prisma.examenMedico.findUnique({
+        where: { idExamMedico: id },
         include: { 
             usuario: true,
-            selecAntecPatologicos: {
+            selecAntecPatolog: {
                 include: {
-                    antecedentesPatologicos: true,
+                    antecPatolog: true,
                 }
             }
         }
     });
 }
 
-//Get examMedico by id
-const getExamMedicoById = async (id) => {
-    return await prisma.examenMedico.findUnique({
-        where: { idExamMedico: id },
-        include: {
+//Get all examMedico by fecha
+const getAllExamMedByFecha = async (fechaFiltro) => {
+    const startOfDay = new Date(fechaFiltro);
+    const endOfDay = new Date(new Date(fechaFiltro).setDate(startOfDay.getDate() + 1));
+
+    return await prisma.examenMedico.findMany({
+        where: {
+            fecha: {
+                gte: startOfDay, // Mayor o igual a la fecha proporcionada
+                lt: endOfDay,    // Menor a la fecha siguiente
+            },
+        },
+        include: { 
             usuario: true,
-            selecAntecPatologicos: {
+            selecAntecPatolog: {
                 include: {
-                    antecedentesPatologicos: true,
+                    antecPatolog: true,
                 }
             }
         }
     });
-}
+};
 
 // Create examMedico
 const createExamMedico = async (data, io) => {
@@ -116,6 +144,7 @@ const deleteExamMedico = async (id) => {
 module.exports = {
     getAllExamMedico,
     getExamMedicoById,
+    getAllExamMedByFecha,
     createExamMedico,
     updateExamMedico,
     deleteExamMedico

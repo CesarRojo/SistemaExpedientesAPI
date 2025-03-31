@@ -13,6 +13,28 @@ const getAllEntrevIni = async () => {
     });
 }
 
+//Get all entrevIni by fecha
+const getAllEntrevIniByFecha = async (fechaFiltro) => {
+    const startOfDay = new Date(fechaFiltro);
+    const endOfDay = new Date(new Date(fechaFiltro).setDate(startOfDay.getDate() + 1));
+
+    return await prisma.entrevistaInicial.findMany({
+        where: {
+            fecha: {
+                gte: startOfDay, // Mayor o igual a la fecha proporcionada
+                lt: endOfDay,    // Menor a la fecha siguiente
+            },
+        },
+        include: { 
+            usuario: {
+                include: {
+                    folio: true,
+                }
+            } 
+        }
+    });
+};
+
 //Get entrevIni by id
 const getEntrevIniById = async (id) => {
     return await prisma.entrevistaInicial.findUnique({
@@ -85,6 +107,7 @@ const deleteEntrevIni = async (id) => {
 
 module.exports = {
     getAllEntrevIni,
+    getAllEntrevIniByFecha,
     getEntrevIniById,
     createEntrevIni,
     updateEntrevIni,

@@ -5,6 +5,7 @@ const router = express.Router();
 
 module.exports = (io) => {
     router.get('/', examMedicoController.getAllExamMedico);
+    router.get('/fecha', examMedicoController.getAllExamMedByFecha);
     router.get('/:id', examMedicoController.getExamMedicoById);
     router.post('/', (req, res) => {examMedicoController.createExamMedico(req, res, io)});
     router.put('/:id', examMedicoController.updateExamMedico);
