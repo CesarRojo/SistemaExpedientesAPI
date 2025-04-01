@@ -2,7 +2,7 @@ const prisma = require('../prisma/prismaClient');
 
 //Get all usuarios
 const getAllUsuarios = async () => {
-    return await prisma.usuario.findMany({ include: { entrevistaInicial: true, examenMedico: true, exploracionFisica: true, solicitudInterna: true, } });
+    return await prisma.usuario.findMany({ include: { entrevistaInicial: true, examenMedico: true, exploracionFisica: true, solicitudInterna: true, folio: true, } });
 }
 
 //Get usuario by id

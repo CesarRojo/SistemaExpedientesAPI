@@ -64,6 +64,16 @@ model EmpleadoRol {
   @@unique([idEmpleado, idRol])
 }
 
+model Documento {
+  idDocumento  Int      @id @default(autoincrement())
+  idUsuario    Int
+  filename     String
+  path         String
+  createdAt    DateTime @default(now())
+
+  usuario      Usuario  @relation(fields: [idUsuario], references: [idUsuario], onDelete: Cascade)
+}
+
 model Usuario {
   idUsuario      Int      @id @default(autoincrement())
   nombre         String
@@ -85,6 +95,7 @@ model Usuario {
   examenMedico   ExamenMedico? @relation
   exploracionFisica ExploracionFisica? @relation
   entrevistaInicial EntrevistaInicial? @relation
+  documentos    Documento[]
 }
 
 model SolicitudInterna {

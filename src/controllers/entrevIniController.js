@@ -44,8 +44,6 @@ const createEntrevIni = async (req, res, io) => {
             req.body.entrevIniData.fecha = new Date(req.body.entrevIniData.fecha);
             req.body.usuario.fechaNac = new Date(req.body.usuario.fechaNac);
         }
-        console.log(req.body.entrevIniData.fecha, typeof req.body.entrevIniData.fecha);
-        console.log(req.body.usuario.fechaNac, typeof req.body.usuario.fechaNac);
         const entrevIni = await entrevIniService.createEntrevIni(req.body, io);
         res.status(201).json(entrevIni);
     } catch (error) {

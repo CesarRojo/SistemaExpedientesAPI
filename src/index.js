@@ -14,6 +14,8 @@ const examMedicoRoutes = require('./routes/examMedicoRoutes');
 const antecPatologRoutes = require('./routes/antecPatologRoutes');
 const expFisicaRoutes = require('./routes/expFisicaRoutes');
 const solicIntRoutes = require('./routes/solicIntRoutes');
+const pdfRoutes = require('./routes/pdfRoutes');
+const docsRoutes = require('./routes/documentosRoutes');
 
 const app = express();
 const server = http.createServer(app);
@@ -42,6 +44,7 @@ app.use("/uploads", express.static("uploads"));
 
 //============RUTAS============
 app.use("/api", videoRoutes(io));
+app.use("/pdf", pdfRoutes);
 app.use("/folio", folioRoutes);
 app.use("/roles", rolesRoutes);
 app.use("/empleado", empleadoRoutes);
@@ -51,6 +54,7 @@ app.use("/examMedico", examMedicoRoutes(io));
 app.use("/antecPatolog", antecPatologRoutes);
 app.use("/expFisica", expFisicaRoutes);
 app.use("/solicInt", solicIntRoutes);
+app.use("/docs", docsRoutes);
 app.use("/auth", authRoutes);
 
 // Manejar conexiones de WebSocket
