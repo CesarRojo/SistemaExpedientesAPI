@@ -5,6 +5,7 @@ const router = express.Router();
 
 //Routes
 router.get('/', solicIntController.getAllSolicInt);
+router.get('/fecha', solicIntController.getAllSolIntByFecha);
 router.get('/:id', solicIntController.getSolicIntById);
 router.post('/', solicIntController.createSolicInt);
 router.delete('/:id', solicIntController.deleteSolicInt);

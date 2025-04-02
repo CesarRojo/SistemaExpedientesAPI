@@ -20,6 +20,28 @@ const getSolIntById = async (id) => {
     });
 }
 
+//Get all entrevIni by fecha
+const getAllSolIntByFecha = async (fechaFiltro) => {
+    const startOfDay = new Date(fechaFiltro);
+    const endOfDay = new Date(new Date(fechaFiltro).setDate(startOfDay.getDate() + 1));
+
+    return await prisma.solicitudInterna.findMany({
+        where: {
+            fecha: {
+                gte: startOfDay, // Mayor o igual a la fecha proporcionada
+                lt: endOfDay,    // Menor a la fecha siguiente
+            },
+        },
+        include: { 
+            usuario: {
+                include: {
+                    folio: true,
+                }
+            } 
+        }
+    });
+};
+
 //Create solicInt
 const createSolInt = async (data) => {
     const { datosFam, ...solicitudData } = data; // Desestructuramos los datos
@@ -44,6 +66,7 @@ const deleteSolInt = async (id) => {
 module.exports = {
     getAllSolInt,
     getSolIntById,
+    getAllSolIntByFecha,
     createSolInt,
     deleteSolInt,
 }

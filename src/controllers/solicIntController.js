@@ -25,6 +25,17 @@ const getSolicIntById = async (req, res) => {
     }
 }
 
+//Get all entrevIni by fecha
+const getAllSolIntByFecha = async (req, res) => {
+    try {
+        const fechaFiltro = req.query.fecha; // Obtener el filtro de fecha de los parámetros de consulta
+        const solInt = await solicIntService.getAllSolIntByFecha(fechaFiltro);
+        res.json(solInt);
+    } catch (error) {
+        res.status(500).json({ error: '<<Failed to fetch solInt by fecha>>' });
+    }
+};
+
 //Create solicInt
 const createSolicInt = async (req, res) => {
     try {
@@ -64,6 +75,7 @@ const deleteSolicInt = async (req, res) => {
 module.exports = {
     getAllSolicInt,
     getSolicIntById,
+    getAllSolIntByFecha,
     createSolicInt,
     deleteSolicInt,
 }

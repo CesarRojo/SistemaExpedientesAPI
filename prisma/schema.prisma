@@ -204,6 +204,7 @@ model ExploracionFisica {
   capacEsp       String
   calificacionFinal String
   idUsuario      Int      @unique
+  createdAt     DateTime @default(now())
   usuario        Usuario   @relation(fields: [idUsuario], references: [idUsuario], onDelete: Cascade)
 }
 

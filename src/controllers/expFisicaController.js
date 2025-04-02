@@ -25,6 +25,17 @@ const getExpFisicaById = async (req, res) => {
     }
 }
 
+//Get all expFisica by fecha
+const getAllExpFisicaByFecha = async (req, res) => {
+    try {
+        const fechaFiltro = req.query.fecha; // Obtener el filtro de fecha de los parámetros de consulta
+        const expFisica = await expFisicaService.getAllExpFisicaByFecha(fechaFiltro);
+        res.json(expFisica);
+    } catch (error) {
+        res.status(500).json({ error: '<<Failed to fetch expFisica by fecha>>' });
+    }
+};
+
 //Create expFisica
 const createExpFisica = async (req, res) => {
     try {
@@ -49,6 +60,7 @@ const deleteExpFisica = async (req, res) => {
 module.exports = {
     getAllExpFisica,
     getExpFisicaById,
+    getAllExpFisicaByFecha,
     createExpFisica,
     deleteExpFisica,
 }

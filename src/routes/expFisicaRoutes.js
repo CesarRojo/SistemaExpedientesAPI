@@ -5,6 +5,7 @@ const router = express.Router();
 
 //Routes
 router.get('/', expFisicaController.getAllExpFisica);
+router.get('/fecha', expFisicaController.getAllExpFisicaByFecha);
 router.get('/:id', expFisicaController.getExpFisicaById);
 router.post('/', expFisicaController.createExpFisica);
 router.delete('/:id', expFisicaController.deleteExpFisica);
