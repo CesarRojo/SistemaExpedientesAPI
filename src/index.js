@@ -16,6 +16,7 @@ const expFisicaRoutes = require('./routes/expFisicaRoutes');
 const solicIntRoutes = require('./routes/solicIntRoutes');
 const pdfRoutes = require('./routes/pdfRoutes');
 const docsRoutes = require('./routes/documentosRoutes');
+const consentRoutes = require('./routes/consentRoutes');
 
 const app = express();
 const server = http.createServer(app);
@@ -54,6 +55,7 @@ app.use("/examMedico", examMedicoRoutes(io));
 app.use("/antecPatolog", antecPatologRoutes);
 app.use("/expFisica", expFisicaRoutes);
 app.use("/solicInt", solicIntRoutes);
+app.use("/consent", consentRoutes);
 app.use("/docs", docsRoutes);
 app.use("/auth", authRoutes);
 

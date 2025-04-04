@@ -89,13 +89,22 @@ model Usuario {
   numero         String
   colonia        String
   escolaridad    String
+  createdAt      DateTime @default(now())
   idFolio        Int      @unique
   folio          Folio     @relation(fields: [idFolio], references: [idFolio], onDelete: Cascade)
   solicitudInterna SolicitudInterna? @relation
   examenMedico   ExamenMedico? @relation
   exploracionFisica ExploracionFisica? @relation
   entrevistaInicial EntrevistaInicial? @relation
+  consentimiento  Consentimiento? @relation
   documentos    Documento[]
+}
+
+model Consentimiento {
+  idConsentimiento Int    @id @default(autoincrement())
+  fecha            DateTime @default(now())
+  idUsuario        Int    @unique
+  usuario          Usuario @relation(fields: [idUsuario], references: [idUsuario], onDelete: Cascade)
 }
 
 model SolicitudInterna {

@@ -5,6 +5,7 @@ const router = express.Router();
 
 //Routes
 router.get('/', usuarioController.getAllUsuarios);
+router.get('/fecha', usuarioController.getAllUsersByFecha);
 router.get('/:id', usuarioController.getUsuarioById);
 router.get('/folio/:id', usuarioController.getUsuarioByIdFolio);
 router.post('/', usuarioController.createUsuario);

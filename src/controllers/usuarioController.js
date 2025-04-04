@@ -40,6 +40,17 @@ const getUsuarioByIdFolio = async (req, res) => {
     }
 }
 
+//Get all entrevIni by fecha
+const getAllUsersByFecha = async (req, res) => {
+    try {
+        const fechaFiltro = req.query.fecha; // Obtener el filtro de fecha de los parámetros de consulta
+        const users = await usuarioService.getAllUsersByFecha(fechaFiltro);
+        res.json(users);
+    } catch (error) {
+        res.status(500).json({ error: '<<Failed to fetch users by fecha>>' });
+    }
+};
+
 //Create usuario
 const createUsuario = async (req, res) => {
     try {
@@ -76,6 +87,7 @@ module.exports = {
     getAllUsuarios,
     getUsuarioById,
     getUsuarioByIdFolio,
+    getAllUsersByFecha,
     createUsuario,
     updateUsuario,
     deleteUsuario,

@@ -20,7 +20,7 @@ const mergePDFs = async (files, destination) => {
     fs.writeFileSync(destination, mergedPdfBytes);
 };
 
-// 📌 Subir documentos y generar PDF combinado
+// Subir documentos y generar PDF combinado
 const uploadDocument = async (req, res) => {
     try {
         const files = req.files;
@@ -54,7 +54,7 @@ const uploadDocument = async (req, res) => {
 
         const newDocuments = await Promise.all(documentPromises);
 
-        // 📌 Generar PDF combinado
+        // Generar PDF combinado
         const uploadedFiles = Object.values(files).map(fileArray => fileArray[0]);
         const mergedPdfPath = path.join(UPLOADS_FOLDER, `merged-${req.body.numFolio}.pdf`);
 
@@ -78,7 +78,7 @@ const uploadDocument = async (req, res) => {
     }
 };
 
-// 📌 Actualizar documentos y regenerar PDF combinado
+// Actualizar documentos y regenerar PDF combinado
 const updateDocuments = async (req, res) => {
     try {
         const idUsuario = parseInt(req.params.idUsuario);
@@ -122,7 +122,7 @@ const updateDocuments = async (req, res) => {
 
         const updatedDocuments = await Promise.all(updatePromises);
 
-        // 📌 Regenerar PDF combinado
+        // Regenerar PDF combinado
         const uploadedFiles = Object.values(files).map(fileArray => fileArray[0]);
         const mergedPdfPath = path.join(UPLOADS_FOLDER, `merged-${req.body.numFolio}.pdf`);
 
@@ -155,7 +155,7 @@ const updateDocuments = async (req, res) => {
     }
 };
 
-// 📌 Obtener documentos de un usuario
+// Obtener documentos de un usuario
 const getDocumentsByUser = async (req, res) => {
     try {
         const idUsuario = parseInt(req.params.id);
