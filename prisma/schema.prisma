@@ -255,6 +255,8 @@ model EntrevistaInicial {
   encinte         String
   tricky          String
   artesanal       String
+  enProceso       String
+  preparado       String
   comprension     String
   vista           String
   calificacion    String

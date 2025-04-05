@@ -16,9 +16,11 @@ const getUsuarioByIdFolio = async (id) => {
 }
 
 //Get all users by fecha
-const getAllUsersByFecha = async (fechaFiltro) => {
-    const startOfDay = new Date(fechaFiltro);
-    const endOfDay = new Date(new Date(fechaFiltro).setDate(startOfDay.getDate() + 1));
+const getAllUsersByFecha = async (fechaInicio, fechaFin) => {
+    const startOfDay = new Date(fechaInicio);
+    const endOfDay = new Date(fechaFin);
+
+    endOfDay.setUTCHours(23, 59, 59, 999); // Establecer la hora al final del día
 
     return await prisma.usuario.findMany({
         where: {

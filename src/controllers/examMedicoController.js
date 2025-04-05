@@ -39,9 +39,11 @@ const getAllExamMedByFecha = async (req, res) => {
 //Create examMedico
 const createExamMedico = async (req, res, io) => {
     try {
-        if(req.body.examMedicoData.fecha && req.body.examMedicoData.fechaNac){
+        if(req.body.examMedicoData.fecha && req.body.examMedicoData.fechaUltMens){
             req.body.examMedicoData.fecha = new Date(req.body.examMedicoData.fecha);
-            req.body.examMedicoData.fechaNac = new Date(req.body.examMedicoData.fechaNac);
+            req.body.examMedicoData.fechaUltMens = new Date(req.body.examMedicoData.fechaUltMens);
+        }else if(req.body.examMedicoData.fecha){
+            req.body.examMedicoData.fecha = new Date(req.body.examMedicoData.fecha);
         }
         const examMedico = await examenMedicoService.createExamMedico(req.body, io);
         res.status(201).json(examMedico);

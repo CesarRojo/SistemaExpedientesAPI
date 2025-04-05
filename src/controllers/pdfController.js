@@ -155,6 +155,41 @@ const updateDocuments = async (req, res) => {
     }
 };
 
+const uploadSingleDocument = async (req, res) => {
+    try {
+        const file = req.file;
+
+        if (!file) {
+            return res.status(400).json({ message: "No se subió ningún archivo" });
+        }
+
+        // Renombrar archivo usando numFolio
+        const newFilename = `${file.originalname}`;
+        const newPath = path.join(file.destination, newFilename);
+
+        fs.renameSync(file.path, newPath); // Renombrar archivo
+        file.filename = newFilename;
+        file.path = newPath;
+
+        // Guardar la información en la base de datos
+        const newDocument = await prisma.documento.create({
+            data: {
+                filename: file.filename,
+                path: `/uploads/documents/${file.filename}`,
+                idUsuario: parseInt(req.body.idUsuario)
+            }
+        });
+
+        res.status(201).json({
+            message: "Documento subido con éxito",
+            document: newDocument
+        });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+
 // Obtener documentos de un usuario
 const getDocumentsByUser = async (req, res) => {
     try {
@@ -174,4 +209,4 @@ const getDocumentsByUser = async (req, res) => {
     }
 };
 
-module.exports = { uploadDocument, getDocumentsByUser, updateDocuments };
+module.exports = { uploadDocument, getDocumentsByUser, updateDocuments, uploadSingleDocument };

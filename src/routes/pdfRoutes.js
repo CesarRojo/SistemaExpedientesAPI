@@ -1,6 +1,6 @@
 const express = require("express");
 const upload = require("../services/pdfService");
-const { uploadDocument, getDocumentsByUser, updateDocuments } = require("../controllers/pdfController");
+const { uploadDocument, getDocumentsByUser, updateDocuments, uploadSingleDocument } = require("../controllers/pdfController");
 
 const router = express.Router();
 
@@ -25,5 +25,7 @@ router.put("/update-docs/:id", upload.fields([
     { name: 'curp', maxCount: 1 },
     { name: 'estudios', maxCount: 1 } // Opcional
 ]), updateDocuments);
+
+router.post("/upload-single-doc", upload.single('document'), uploadSingleDocument);
 
 module.exports = router;
