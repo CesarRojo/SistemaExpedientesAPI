@@ -129,7 +129,7 @@ model DatosFam {
   parentesco    String
   nombre        String
   apellidos     String
-  fechaNac      DateTime
+  fechaNac      DateTime?
   idSolInt      Int
   solicitudInterna SolicitudInterna @relation(fields: [idSolInt], references: [idSolInt], onDelete: Cascade)
 }
@@ -192,8 +192,8 @@ model ExploracionFisica {
   tinel          Int
   phalen         Int
   observaciones  String?
-  movAnormales   Boolean
-  marcha         Boolean
+  movAnormales   String
+  marcha         String
   comprension    Int
   visionLejos    Int
   visionCerca    Int

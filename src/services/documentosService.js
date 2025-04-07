@@ -6,13 +6,20 @@ const getAllDocumentos = async () => {
 }
 
 const getDocumentosPorUsuarios = async (idUsuarios) => {
-    return await prisma.documento.findMany({
+    console.log("usuarios service", idUsuarios);
+
+    // Convertir los valores de idUsuarios a números
+    const idUsuariosNumericos = idUsuarios.map(id => parseInt(id));
+
+    const res = await prisma.documento.findMany({
         where: {
             idUsuario: {
-                in: idUsuarios // Filtrar por múltiples idUsuario
+                in: idUsuariosNumericos // Filtrar por múltiples idUsuario
             }
         }
     });
+    console.log("res", res);
+    return res;
 };
 
 module.exports = {

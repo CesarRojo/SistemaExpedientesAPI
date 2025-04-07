@@ -10,6 +10,7 @@ const loginService = async (username, password) => {
         noReloj: true,
         folio: {
           select: { // Solo selecciona los campos que deseas de Folio
+            numFolio: true,
             Usuario: {
               select: {
                 idUsuario: true,

@@ -12,6 +12,7 @@ const getAllDocumentos = async (req, res) => {
 
 const getDocumentosPorUsuarios = async (req, res) => {
     const { idUsuarios } = req.query; // Obtener el idUsuarios de los parámetros de consulta
+    console.log("usuarios",req.query.idUsuarios);
     const usuariosArray = idUsuarios.split(','); // Convertir el string en un array
     try {
         const docs = await documentoService.getDocumentosPorUsuarios(usuariosArray);

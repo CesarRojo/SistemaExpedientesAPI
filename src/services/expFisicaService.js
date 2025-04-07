@@ -34,7 +34,7 @@ const getAllExpFisicaByFecha = async (fechaFiltro) => {
 
 //Create explorFisica
 const createExpFisica = async (data) => {
-    console.log(data);
+    console.log("expFisica create",data);
     return await prisma.exploracionFisica.create({ data });
 }
 
