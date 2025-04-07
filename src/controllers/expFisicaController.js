@@ -42,7 +42,6 @@ const createExpFisica = async (req, res) => {
         if (req.body.createdAt) {
             req.body.createdAt = new Date(req.body.createdAt);
         }
-        console.log(req.body.createdAt);
         const expFisica = await expFisicaService.createExpFisica(req.body);
         res.status(201).json(expFisica);
     } catch (error) {
