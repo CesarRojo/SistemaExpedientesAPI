@@ -78,6 +78,47 @@ const uploadDocument = async (req, res) => {
     }
 };
 
+//Subir contratos y la hoja del seguro de vida (SIN COMBINAR LOS PDF)
+const uploadContracts = async (req, res) => {
+    try {
+        const files = req.files;
+
+        if (!files || Object.keys(files).length === 0) {
+            return res.status(400).json({ message: "No se subió ningún archivo" });
+        }
+
+        // Renombrar archivos usando numFolio
+        Object.entries(files).forEach(([field, fileArray]) => {
+            const file = fileArray[0];
+            const newFilename = `${field}-${req.body.numFolio}.pdf`;
+            const newPath = path.join(file.destination, newFilename);
+
+            fs.renameSync(file.path, newPath); // Renombrar archivo
+            file.filename = newFilename;
+            file.path = newPath;
+        });
+
+        // Guardar la información en la base de datos
+        const documentPromises = Object.entries(files).map(async ([field, fileArray]) => {
+            const file = fileArray[0];
+            return await prisma.documento.create({
+                data: {
+                    filename: file.filename,
+                    path: `/uploads/documents/${file.filename}`,
+                    idUsuario: parseInt(req.body.idUsuario)
+                }
+            });
+        });
+
+        res.status(201).json({
+            message: "Documentos subidos con éxito",
+            documents: [...documentPromises]
+        });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
 // Actualizar documentos y regenerar PDF combinado
 const updateDocuments = async (req, res) => {
     try {
@@ -209,4 +250,4 @@ const getDocumentsByUser = async (req, res) => {
     }
 };
 
-module.exports = { uploadDocument, getDocumentsByUser, updateDocuments, uploadSingleDocument };
+module.exports = { uploadDocument, uploadContracts, getDocumentsByUser, updateDocuments, uploadSingleDocument };
