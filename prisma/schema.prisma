@@ -266,3 +266,12 @@ model EntrevistaInicial {
   idUsuario      Int      @unique
   usuario        Usuario   @relation(fields: [idUsuario], references: [idUsuario], onDelete: Cascade)
 }
+
+model VistaColabora {
+  CB_CODIGO   Int      @id
+  PRETTYNAME  String   @db.VarChar(93)
+  CB_APE_MAT  String   @db.VarChar(30)
+  CB_APE_PAT  String   @db.VarChar(30)
+  CB_NOMBRES  String   @db.VarChar(30)
+  CB_FEC_ING  DateTime @db.DateTime
+}
