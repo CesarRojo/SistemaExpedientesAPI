@@ -1,11 +1,6 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["views"]
 }
 
 datasource db {
@@ -14,44 +9,44 @@ datasource db {
 }
 
 model Video {
-  idVideo       Int    @id @default(autoincrement())
-  filename      String
-  path          String
-  createdAt     DateTime @default(now())
+  idVideo   Int      @id @default(autoincrement())
+  filename  String
+  path      String
+  createdAt DateTime @default(now())
 }
 
 model Extras {
-  idExtras     Int    @id @default(autoincrement())
-  idFolio      Int    @unique
-  vioVideos    Boolean @default(false) // Indica si el usuario ha visto todos los videos
-  folio        Folio  @relation(fields: [idFolio], references: [idFolio], onDelete: Cascade)
+  idExtras  Int     @id @default(autoincrement())
+  idFolio   Int     @unique
+  vioVideos Boolean @default(false)
+  folio     Folio   @relation(fields: [idFolio], references: [idFolio], onDelete: Cascade)
 }
 
 model Folio {
-  idFolio       Int    @id @default(autoincrement())
-  numFolio      Int    @unique
-  Empleado      Empleado?
-  Usuario       Usuario?
-  Extras        Extras?
+  idFolio  Int       @id @default(autoincrement())
+  numFolio Int       @unique
+  Empleado Empleado?
+  Extras   Extras?
+  Usuario  Usuario?
 }
 
 model Empleado {
-  idEmpleado    Int      @id @default(autoincrement())
-  noReloj       String   @unique
-  password      String
-  puesto        String
-  createdAt     DateTime @default(now())
-  idFolio       Int?     @unique
-  folio         Folio?   @relation(fields: [idFolio], references: [idFolio], onDelete: Cascade)
-  roles         EmpleadoRol[]
+  idEmpleado Int           @id @default(autoincrement())
+  noReloj    String        @unique
+  password   String
+  puesto     String
+  createdAt  DateTime      @default(now())
+  idFolio    Int?          @unique
+  folio      Folio?        @relation(fields: [idFolio], references: [idFolio], onDelete: Cascade)
+  roles      EmpleadoRol[]
 }
 
 model Roles {
-  idRol         Int      @id @default(autoincrement())
-  displayName   String
-  key           String
-  level         Int
-  empleados     EmpleadoRol[]
+  idRol       Int           @id @default(autoincrement())
+  displayName String
+  key         String
+  level       Int
+  empleados   EmpleadoRol[]
 }
 
 model EmpleadoRol {
@@ -65,161 +60,160 @@ model EmpleadoRol {
 }
 
 model Documento {
-  idDocumento  Int      @id @default(autoincrement())
-  idUsuario    Int
-  filename     String
-  path         String
-  createdAt    DateTime @default(now())
-
-  usuario      Usuario  @relation(fields: [idUsuario], references: [idUsuario], onDelete: Cascade)
+  idDocumento Int      @id @default(autoincrement())
+  idUsuario   Int
+  filename    String
+  path        String
+  createdAt   DateTime @default(now())
+  usuario     Usuario  @relation(fields: [idUsuario], references: [idUsuario], onDelete: Cascade)
 }
 
 model Usuario {
-  idUsuario      Int      @id @default(autoincrement())
-  nombre         String
-  apellidoPat    String
-  apellidoMat    String
-  fechaNac       DateTime
-  sexo           String   @db.Char(1)
-  edad           Int
-  estado_civil   String
-  tel_personal   String
-  tel_emergencia String
-  calle          String
-  numero         String
-  colonia        String
-  escolaridad    String
-  createdAt      DateTime @default(now())
-  idFolio        Int      @unique
-  folio          Folio     @relation(fields: [idFolio], references: [idFolio], onDelete: Cascade)
-  solicitudInterna SolicitudInterna? @relation
-  examenMedico   ExamenMedico? @relation
-  exploracionFisica ExploracionFisica? @relation
-  entrevistaInicial EntrevistaInicial? @relation
-  consentimiento  Consentimiento? @relation
-  documentos    Documento[]
+  idUsuario         Int                @id @default(autoincrement())
+  nombre            String
+  apellidoPat       String
+  apellidoMat       String
+  sexo              String             @db.Char(1)
+  edad              Int
+  estado_civil      String
+  tel_personal      String
+  tel_emergencia    String
+  calle             String
+  numero            String
+  colonia           String
+  escolaridad       String
+  idFolio           Int                @unique
+  fechaNac          DateTime
+  createdAt         DateTime           @default(now())
+  consentimiento    Consentimiento?
+  documentos        Documento[]
+  entrevistaInicial EntrevistaInicial?
+  examenMedico      ExamenMedico?
+  exploracionFisica ExploracionFisica?
+  solicitudInterna  SolicitudInterna?
+  folio             Folio              @relation(fields: [idFolio], references: [idFolio], onDelete: Cascade)
 }
 
 model Consentimiento {
-  idConsentimiento Int    @id @default(autoincrement())
+  idConsentimiento Int      @id @default(autoincrement())
   fecha            DateTime @default(now())
-  idUsuario        Int    @unique
-  usuario          Usuario @relation(fields: [idUsuario], references: [idUsuario], onDelete: Cascade)
+  idUsuario        Int      @unique
+  usuario          Usuario  @relation(fields: [idUsuario], references: [idUsuario], onDelete: Cascade)
 }
 
 model SolicitudInterna {
-  idSolInt      Int      @id @default(autoincrement())
-  fecha         DateTime
-  lugarNac      String
-  RFC           String
-  CURP          String
-  NSS           String
-  CP            String
-  ciudad        String
-  estado        String
-  municipio     String
-  viveCon       String
-  idUsuario      Int      @unique
-  usuario       Usuario   @relation(fields: [idUsuario], references: [idUsuario], onDelete: Cascade)
-  datosFam      DatosFam[]
+  idSolInt  Int        @id @default(autoincrement())
+  fecha     DateTime
+  lugarNac  String
+  RFC       String
+  CURP      String
+  NSS       String
+  CP        String
+  ciudad    String
+  estado    String
+  municipio String
+  viveCon   String
+  idUsuario Int        @unique
+  datosFam  DatosFam[]
+  usuario   Usuario    @relation(fields: [idUsuario], references: [idUsuario], onDelete: Cascade)
 }
 
 model DatosFam {
-  idDatosFam    Int      @id @default(autoincrement())
-  parentesco    String
-  nombre        String
-  apellidos     String
-  fechaNac      DateTime?
-  idSolInt      Int
+  idDatosFam       Int              @id @default(autoincrement())
+  nombre           String
+  apellidos        String
+  fechaNac         DateTime?
+  idSolInt         Int
+  parentesco       String
   solicitudInterna SolicitudInterna @relation(fields: [idSolInt], references: [idSolInt], onDelete: Cascade)
 }
 
 model ExamenMedico {
-  idExamMed     Int      @id @default(autoincrement())
-  planta        String
-  fecha         DateTime
-  alcoholismo   String?
-  deporte       String?
-  tabaquismo    String?
-  drogas        String?
-  fechaUltMens  DateTime?
-  metPlanFam    String?
-  numEmb        Int?
-  partos        Int?
-  cesareas      Int?
-  abortos       Int?
-  observaciones  String?
-  otraEnferm    String?
-  idUsuario      Int      @unique
-  usuario       Usuario   @relation(fields: [idUsuario], references: [idUsuario], onDelete: Cascade)
+  idExamMed         Int                 @id @default(autoincrement())
+  planta            String
+  fecha             DateTime
+  alcoholismo       String?
+  deporte           String?
+  tabaquismo        String?
+  drogas            String?
+  fechaUltMens      DateTime?
+  metPlanFam        String?
+  numEmb            Int?
+  partos            Int?
+  cesareas          Int?
+  abortos           Int?
+  observaciones     String?
+  otraEnferm        String?
+  idUsuario         Int                 @unique
+  antecFam          AntecFam[]
+  usuario           Usuario             @relation(fields: [idUsuario], references: [idUsuario], onDelete: Cascade)
   selecAntecPatolog SelecAntecPatolog[]
-  antecFam      AntecFam[]
 }
 
 model SelecAntecPatolog {
-  idSelecAntecPatolog Int @id @default(autoincrement())
+  idSelecAntecPatolog Int          @id @default(autoincrement())
   idExamMed           Int
-  examenMedico       ExamenMedico @relation(fields: [idExamMed], references: [idExamMed], onDelete: Cascade)
-  idAntecPatolog     Int
-  antecPatolog       AntecPatolog @relation(fields: [idAntecPatolog], references: [idAntecPatolog], onDelete: Cascade)
+  idAntecPatolog      Int
+  antecPatolog        AntecPatolog @relation(fields: [idAntecPatolog], references: [idAntecPatolog], onDelete: Cascade)
+  examenMedico        ExamenMedico @relation(fields: [idExamMed], references: [idExamMed], onDelete: Cascade)
 }
 
 model AntecPatolog {
-  idAntecPatolog Int @id @default(autoincrement())
-  nombre         String
+  idAntecPatolog    Int                 @id @default(autoincrement())
+  nombre            String
   selecAntecPatolog SelecAntecPatolog[]
 }
 
 model AntecFam {
-  idAntecFam     Int @id @default(autoincrement())
-  parentesco     String
-  edad           Int
-  enfermedad     String?
-  causaMuerte    String?
-  idExamMed      Int
-  examenMedico   ExamenMedico @relation(fields: [idExamMed], references: [idExamMed], onDelete: Cascade)
+  idAntecFam   Int          @id @default(autoincrement())
+  parentesco   String
+  edad         Int
+  enfermedad   String?
+  causaMuerte  String?
+  idExamMed    Int
+  examenMedico ExamenMedico @relation(fields: [idExamMed], references: [idExamMed], onDelete: Cascade)
 }
 
 model ExploracionFisica {
-  idExpFis       Int      @id @default(autoincrement())
-  peso           Int
-  talla          Int
-  temperatura    Int
-  FR             Int
-  FC             Int
-  TA             Int
-  finkelstein    Int
-  tinel          Int
-  phalen         Int
-  observaciones  String?
-  movAnormales   String
-  marcha         String
-  comprension    Int
-  visionLejos    Int
-  visionCerca    Int
-  daltonismo     Int
-  OI             Int
-  OD             Int
-  calificacion   Int
-  piel           String
-  higiene        String
-  tipoPeso       String
-  lesionOcular   Int
-  lesionOido     Int
-  bocaDienEnc   Int
-  torax          Int
-  columVert      Int
-  extremidades   Int
-  capacEsp       String
+  idExpFis          Int      @id @default(autoincrement())
+  peso              String
+  talla             String
+  temperatura       String
+  FR                String
+  FC                String
+  TA                String
+  finkelstein       String
+  tinel             String
+  phalen            String
+  observaciones     String?
+  movAnormales      String
+  marcha            String
+  comprension       String
+  visionLejos       String
+  visionCerca       String
+  daltonismo        String
+  OI                String
+  OD                String
+  calificacion      String
+  piel              String
+  higiene           String
+  tipoPeso          String
+  lesionOcular      String
+  lesionOido        String
+  bocaDienEnc       String
+  torax             String
+  columVert         String
+  extremidades      String
+  capacEsp          String
   calificacionFinal String
-  idUsuario      Int      @unique
-  createdAt     DateTime @default(now())
-  usuario        Usuario   @relation(fields: [idUsuario], references: [idUsuario], onDelete: Cascade)
+  idUsuario         Int      @unique
+  createdAt         DateTime @default(now())
+  usuario           Usuario  @relation(fields: [idUsuario], references: [idUsuario], onDelete: Cascade)
 }
 
 model EntrevistaInicial {
-  idEntrevIni    Int      @id @default(autoincrement())
-  areaDirige     String
+  idEntrevIni     Int      @id @default(autoincrement())
+  areaDirige      String
   puesto          String
   turno           String   @db.Char(1)
   actualDedica    String
@@ -255,23 +249,23 @@ model EntrevistaInicial {
   encinte         String
   tricky          String
   artesanal       String
-  enProceso       String
-  preparado       String
   comprension     String
   vista           String
   calificacion    String
   comentarios     String
-  bonoContr      Int?
-  areaOPlanta    String
-  idUsuario      Int      @unique
-  usuario        Usuario   @relation(fields: [idUsuario], references: [idUsuario], onDelete: Cascade)
+  bonoContr       Int?
+  areaOPlanta     String
+  idUsuario       Int      @unique
+  enProceso       String?
+  preparado       String?
+  usuario         Usuario  @relation(fields: [idUsuario], references: [idUsuario], onDelete: Cascade)
 }
 
-model VistaColabora {
-  CB_CODIGO   Int      @id
-  PRETTYNAME  String   @db.VarChar(93)
-  CB_APE_MAT  String   @db.VarChar(30)
-  CB_APE_PAT  String   @db.VarChar(30)
-  CB_NOMBRES  String   @db.VarChar(30)
-  CB_FEC_ING  DateTime @db.DateTime
+view Colabora {
+  CB_CODIGO  Int      @unique
+  PRETTYNAME String   @db.VarChar(93)
+  CB_APE_MAT String   @db.VarChar(30)
+  CB_APE_PAT String   @db.VarChar(30)
+  CB_NOMBRES String   @db.VarChar(30)
+  CB_FEC_ING DateTime @db.DateTime
 }

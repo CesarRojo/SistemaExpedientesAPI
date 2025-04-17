@@ -17,6 +17,7 @@ const solicIntRoutes = require('./routes/solicIntRoutes');
 const pdfRoutes = require('./routes/pdfRoutes');
 const docsRoutes = require('./routes/documentosRoutes');
 const consentRoutes = require('./routes/consentRoutes');
+const colaboraRoutes = require('./routes/colaboraRoutes');
 
 const app = express();
 const server = http.createServer(app);
@@ -58,6 +59,7 @@ app.use("/solicInt", solicIntRoutes);
 app.use("/consent", consentRoutes);
 app.use("/docs", docsRoutes);
 app.use("/auth", authRoutes);
+app.use("/colabora", colaboraRoutes);
 
 // Manejar conexiones de WebSocket
 io.on('connection', (socket) => {
