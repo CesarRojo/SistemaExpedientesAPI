@@ -245,19 +245,21 @@ model EntrevistaInicial {
   infonavit       Int?
   antecedentesPen String?
   fecha           DateTime
-  image           String
-  encinte         String
-  tricky          String
-  artesanal       String
-  comprension     String
-  vista           String
-  calificacion    String
-  comentarios     String
+  image           String?
+  encinte         String?
+  tricky          String?
+  artesanal       String?
+  comprension     String?
+  vista           String?
+  calificacion    String?
+  comentarios     String?
   bonoContr       Int?
-  areaOPlanta     String
+  areaOPlanta     String?
   idUsuario       Int      @unique
   enProceso       String?
   preparado       String?
+  recomendador    String?
+  observaciones   String?
   usuario         Usuario  @relation(fields: [idUsuario], references: [idUsuario], onDelete: Cascade)
 }
 

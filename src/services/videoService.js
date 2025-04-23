@@ -43,10 +43,10 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-// Configuración de multer con límites de tamaño (100MB)
+// Configuración de multer con límites de tamaño (600MB)
 const upload = multer({
   storage,
-  limits: { fileSize: 100 * 1024 * 1024 }, 
+  limits: { fileSize: 600 * 1024 * 1024 }, 
   fileFilter
 });
 

@@ -7,7 +7,7 @@ const getAllUsuarios = async () => {
 
 //Get usuario by id
 const getUsuarioById = async (id) => {
-    return await prisma.usuario.findUnique({ where: { idUsuario: id }, include: { entrevistaInicial: true, examenMedico: true, exploracionFisica: true, solicitudInterna: true, consentimiento: true, folio: true, } });
+    return await prisma.usuario.findUnique({ where: { idUsuario: id }, include: { entrevistaInicial: true, examenMedico: { include: { selecAntecPatolog: true, antecFam: true, } }, exploracionFisica: true, solicitudInterna: true, consentimiento: true, folio: true, } });
 }
 
 //Get usuario by idFolio
