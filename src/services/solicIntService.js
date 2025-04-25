@@ -44,7 +44,7 @@ const getAllSolIntByFecha = async (fechaFiltro) => {
 
 //Create solicInt
 const createSolInt = async (data) => {
-    const { datosFam, ...solicitudData } = data; // Desestructuramos los datos
+    const { datosFam, usuario, numFolio, ...solicitudData } = data; // Desestructuramos los datos
     console.log(datosFam);
     console.log(solicitudData);
 
@@ -54,6 +54,17 @@ const createSolInt = async (data) => {
             datosFam: {
                 create: datosFam, // Creamos los datos de la familia anidados
             },
+            usuario: {
+                create: {
+                    ...usuario,
+                    folio: {
+                        connectOrCreate: {
+                            where: { numFolio },
+                            create: { numFolio }
+                        }
+                    }
+                }
+            }
         },
     });
 }

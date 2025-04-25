@@ -42,6 +42,8 @@ const createSolicInt = async (req, res) => {
         // Convertir la fecha de string a Date
         if (req.body.fecha) {
             req.body.fecha = new Date(req.body.fecha);
+            req.body.usuario.fechaNac = new Date(req.body.usuario.fechaNac);
+            req.body.usuario.createdAt = new Date(req.body.usuario.createdAt);
         }
 
         // Convertir la fechaNac de cada objeto en datosFam a Date
