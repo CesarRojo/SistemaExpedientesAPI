@@ -51,9 +51,9 @@ const getEntrevIniById = async (id) => {
 
 //Create entrevIni
 const createEntrevIni = async (data, io) => {
-    const { usuario, numFolio, entrevIniData } = data;
+    const { entrevIniData } = data;
 
-    if (!usuario || !numFolio || !entrevIniData) {
+    if (!entrevIniData) {
         throw new Error('Datos incompletos para crear EntrevIni');
     }
 
@@ -65,17 +65,17 @@ const createEntrevIni = async (data, io) => {
         const newEntrevIni = await prisma.entrevistaInicial.create({
             data: {
                 ...entrevIniData,
-                usuario: {
-                    create: {
-                        ...usuario,
-                        folio: {
-                            connectOrCreate: {
-                                where: { numFolio },
-                                create: { numFolio }
-                            }
-                        }
-                    }
-                }
+                // usuario: {
+                //     create: {
+                //         ...usuario,
+                //         folio: {
+                //             connectOrCreate: {
+                //                 where: { numFolio },
+                //                 create: { numFolio }
+                //             }
+                //         }
+                //     }
+                // }
             }
         });
 

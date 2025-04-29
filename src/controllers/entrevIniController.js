@@ -42,8 +42,8 @@ const createEntrevIni = async (req, res, io) => {
         // Convertir la fecha de string a Date
         if (req.body.entrevIniData.fecha) {
             req.body.entrevIniData.fecha = new Date(req.body.entrevIniData.fecha);
-            req.body.usuario.fechaNac = new Date(req.body.usuario.fechaNac);
-            req.body.usuario.createdAt = new Date(req.body.usuario.createdAt);
+            // req.body.usuario.fechaNac = new Date(req.body.usuario.fechaNac);
+            // req.body.usuario.createdAt = new Date(req.body.usuario.createdAt);
         }
         const entrevIni = await entrevIniService.createEntrevIni(req.body, io);
         res.status(201).json(entrevIni);
