@@ -67,6 +67,7 @@ const loginFolioService = async (folio) => {
             idUsuario: true,
             nombre: true,
             apellidoPat: true,
+            apellidoMat: true,
           }
         },
         Extras: {
