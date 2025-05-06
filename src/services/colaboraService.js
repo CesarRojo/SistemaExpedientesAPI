@@ -14,6 +14,10 @@ const getColaboraByPrettyName = async (prettyName) => {
                 contains: prettyName.toLowerCase(), // Convertir a minúsculas
             },
         },
+        select: {
+            CB_CODIGO: true,
+            CB_FEC_ING: true,
+        }
     });
 }
 
