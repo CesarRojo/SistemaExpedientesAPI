@@ -55,7 +55,12 @@ const createEntrevIni = async (req, res, io) => {
 //Update entrevIni
 const updateEntrevIni = async (req, res) => {
     try {
+        // console.log("llegó update");
         const id = parseInt(req.params.id);
+        if (req.body.entrevIniData.fecha) {
+            req.body.entrevIniData.fecha = new Date(req.body.entrevIniData.fecha);
+        }
+        // console.log(req.body);
         const entrevIni = await entrevIniService.updateEntrevIni(id, req.body);
         res.status(200).json(entrevIni);
     } catch (error) {

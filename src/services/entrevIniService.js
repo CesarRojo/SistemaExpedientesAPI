@@ -92,9 +92,14 @@ const createEntrevIni = async (data, io) => {
 
 //Update entrevIni
 const updateEntrevIni = async (id, data) => {
+    const { entrevIniData } = data;
+    // console.log("entrevIniData service", entrevIniData);
+
     return await prisma.entrevistaInicial.update({
         where: { idEntrevIni: id },
-        data
+        data: {
+            ...entrevIniData,
+        }
     });
 }
 
