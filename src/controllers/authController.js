@@ -1,11 +1,18 @@
+const jwt = require('jsonwebtoken');
 const { loginService, loginFolioService } = require('../services/authService');
+
+const JWT_SECRET = 'your_jwt_secret';
 
 const login = async (req, res) => {
   const { username, password } = req.body;
   try {
     const user = await loginService(username, password);
-    console.log("userController: ",user);
     if (user) {
+      // Generar el token
+      const token = jwt.sign({ id: user.noReloj, roles: user.roles }, JWT_SECRET, { expiresIn: '1h' });
+      
+      // Enviar el token en una cookie
+      res.cookie('token', token, { httpOnly: true, sameSite: 'Lax', }); // Asegúrate de que la cookie sea segura en producción
       res.status(200).json({ user });
     } else {
       res.status(401).json({ message: 'Credenciales incorrectas' });
@@ -17,10 +24,8 @@ const login = async (req, res) => {
 
 const loginFolio = async (req, res) => {
   const { folio } = req.body;
-  console.log("folio controller",folio);
   try {
     const user = await loginFolioService(folio);
-    console.log("userControllerFolio: ",user);
     if (user) {
       res.status(200).json({ user });
     } else {
@@ -31,4 +36,9 @@ const loginFolio = async (req, res) => {
   }
 };
 
-module.exports = { login, loginFolio };
+const logout = (req, res) => {
+  res.clearCookie('token'); // Elimina la cookie del token
+  res.status(200).json({ message: 'Sesión cerrada correctamente' });
+};
+
+module.exports = { login, loginFolio, logout };

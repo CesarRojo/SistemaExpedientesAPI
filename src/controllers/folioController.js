@@ -53,7 +53,7 @@ const getLastFolio = async (req, res) => {
 //Create folio
 const createFolio = async (req, res) => {
     try {
-        const folio = folioService.createFolio(req.body);
+        const folio = await folioService.createFolio(req.body);
         res.status(201).json(folio);
     } catch (error) {
         res.status(400).json({ error: '<<Failed to create folio>>' });

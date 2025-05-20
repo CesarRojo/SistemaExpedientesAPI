@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const http = require('http');
 const socketIo = require('socket.io');
+const cookieParser = require('cookie-parser');
 
 const authRoutes = require('./routes/authRoutes');
 const videoRoutes = require('./routes/videoRoutes');
@@ -22,10 +23,17 @@ const colaboraRoutes = require('./routes/colaboraRoutes');
 const app = express();
 const server = http.createServer(app);
 
+// Lista de orígenes permitidos
+const allowedOrigins = [
+  'http://172.30.189.98:5006',
+  'http://172.30.69.163:5013',
+  'http://localhost:5013',
+];
+
 // Configurar Socket.IO con CORS
 const io = socketIo(server, {
   cors: {
-    origin: '*', // Permitir cualquier origen
+    origin: allowedOrigins, // Permitir cualquier origen
     methods: ['GET', 'POST', 'DELETE', 'PUT'],
     credentials: true // Permitir cookies y credenciales
   }
@@ -35,11 +43,12 @@ const PORT = process.env.PORT || 5005;
 
 // Configurar CORS para las solicitudes HTTP
 const corsOptions = {
-  origin: '*', // Permitir cualquier origen
+  origin: allowedOrigins, // Permitir cualquier origen
   methods: ['GET', 'POST', 'DELETE', 'PUT'],
   credentials: true // Permitir cookies y credenciales
 };
 
+app.use(cookieParser());
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use("/uploads", express.static("uploads"));

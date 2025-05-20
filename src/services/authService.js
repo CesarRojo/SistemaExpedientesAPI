@@ -20,15 +20,6 @@ const loginService = async (username, password) => {
             },
           }
         },
-        roles: { // Selecciona solo el nivel de rol
-          select: {
-            rol: {
-              select: {
-                level: true,
-              }
-            }
-          }
-        }
       }
     });
 

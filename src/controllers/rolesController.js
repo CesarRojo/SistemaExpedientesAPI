@@ -1,3 +1,4 @@
+const { get } = require('../routes/authRoutes');
 const rolesService = require('../services/rolesService');
 
 //Get all roles
@@ -22,6 +23,20 @@ const getRoleById = async (req, res) => {
         }
     } catch (error) {
         res.status(500).json({ error: '<<Failed to fetch role by id>>'});
+    }
+}
+
+//Get role by empleado username
+const getRoleEmpleado = async (req, res) => {
+    try {
+        const roles = await rolesService.getRoleEmpleado(req.query.username);
+        if (roles){
+            res.json(roles);
+        }else{
+            res.status(404).json({ error: '<<Roles not found>>'});
+        }
+    } catch (error) {
+        res.status(500).json({ error: '<<Failed to fetch roles by empleado username>>'});
     }
 }
 
@@ -60,6 +75,7 @@ const deleteRole = async (req, res) => {
 module.exports = {
     getAllRoles,
     getRoleById,
+    getRoleEmpleado,
     createRole,
     updateRole,
     deleteRole,

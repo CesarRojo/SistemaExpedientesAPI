@@ -29,45 +29,45 @@ const getLastFolio = async () => {
 }
 
 //Create folio
-const createFolio = async (data) => {
-    return await prisma.folio.create({ 
-        data: {
-            numFolio: data.numFolio,
-            Extras: {
-                create: {
-                    vioVideos: false,
-                }
-            }
-        }
-    });
-}
+// const createFolio = async (data) => {
+//     return await prisma.folio.create({ 
+//         data: {
+//             numFolio: data.numFolio,
+//             Extras: {
+//                 create: {
+//                     vioVideos: false,
+//                 }
+//             }
+//         }
+//     });
+// }
 
 //Create folio
-// const createFolio = async (data) => {
-//     const transaction = await prisma.$transaction(async (prisma) => {
-//       // Obtener el último folio
-//       const lastFolio = await prisma.folio.findFirst({
-//         orderBy: {
-//           idFolio: 'desc',
-//         },
-//       });
-  
-//       // Generar el nuevo folio
-//       const newFolioNumber = lastFolio ? lastFolio.numFolio + 2 : 1000;
-//       // Crear el nuevo folio
-//       return await prisma.folio.create({
-//         data: {
-//           numFolio: newFolioNumber,
-//           Extras: {
-//             create: {
-//               vioVideos: false,
-//             },
-//           },
-//         },
-//       });
-//     });
-//     return transaction;
-//   };
+const createFolio = async (data) => {
+    const transaction = await prisma.$transaction(async (prisma) => {
+      // Obtener el último folio
+      const lastFolio = await prisma.folio.findFirst({
+        orderBy: {
+          idFolio: 'desc',
+        },
+      });
+
+      // Generar el nuevo folio
+      const newFolioNumber = lastFolio ? lastFolio.numFolio + 2 : 1000;
+      // Crear el nuevo folio
+      return await prisma.folio.create({
+        data: {
+          numFolio: newFolioNumber,
+          Extras: {
+            create: {
+              vioVideos: false,
+            },
+          },
+        },
+      });
+    });
+    return transaction;
+  };
 
 const markVideosAsWatched = async (idFolio) => {
     await prisma.extras.update({
